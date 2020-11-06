@@ -56,6 +56,22 @@ const NavigationItems = [
           }
         ]
       },
+      {
+        id: 'inventories',
+        title: 'Inventarios',
+        type: 'collapse',
+        icon: 'feather icon-package',
+        children: [
+        ]
+      },
+      {
+        id: 'reports',
+        title: 'Reportes',
+        type: 'collapse',
+        icon: 'feather icon-clipboard',
+        children: [
+        ]
+      },
     ]
   },
   {
@@ -65,9 +81,18 @@ const NavigationItems = [
     icon: 'feather icon-monitor',
     children: [
       {
+        id: 'schedule',
+        title: 'Programación',
+        type: 'collapse',
+        icon: 'feather icon-calendar',
+        children: [
+        ]
+      },
+      {
         id: 'zona',
         title: 'Zonas de campo',
         type: 'collapse',
+        url: '/zona',
         icon: 'feather icon-sunset',
         children: [
           {
@@ -114,6 +139,22 @@ const NavigationItems = [
       },
     ]
   },
+  {
+    id: 'operator',
+    title: 'Operador de Campo',
+    type: 'group',
+    icon: 'feather icon-monitor',
+    children: [
+      {
+        id: 'binnacle',
+        title: 'Bitácora',
+        type: 'collapse',
+        icon: 'feather icon-book',
+        children: [
+        ]
+      },
+    ]
+  }
 ];
 
 @Injectable()

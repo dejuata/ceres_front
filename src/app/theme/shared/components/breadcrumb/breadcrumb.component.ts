@@ -128,7 +128,6 @@ export class BreadcrumbComponent implements OnInit {
     */
 
     let partsRoute = activeLink.split("/")
-    console.log(partsRoute);
     partsRoute.forEach(elem => {
       if(elem === "zona") {
         result.push({
