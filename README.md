@@ -1,27 +1,32 @@
-# NgFlatAble
+CERES APP
+================================
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
+Este proyecto es una aplicación tipo PWA, el sistema permite realizar el registro de información, control y seguimiento de las labores de campo realizadas por personal de una empresa agrícola. Se han definido tres tipos de usuarios: Jefe de campo, supervisor y operario. De igual manera, se han determinado los siguientes módulos: usuarios, programación de personal, bitácora labores de campo, labores de campo, zonas de campo, inventarios y reportes.
 
-## Development server
+Instalación
+------------
+1. Instalar previamente NodeJS
+2. Clonar el repositorio.
+```
+$ git clone https://github.com/dejuata/ceres_front.git
+```
+3. Entrar a la carpeta principal del proyecto y ejecutar
+```
+$ npm install
+```
+4. Ejecutar el servidor de Angular con el comando
+```
+$ ng serve
+```
+5. Ingresar a [localhost:4200](http://localhost:4200/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Funcionalidades básicas
+------------
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* Módulo de usuarios.
+* Módulo Programación de personal.
+* Módulo Bitácora Labores de Campo.
+* Módulo de Labores de Campo.
+* Módulo de Zonas de Campo.
+* Módulo de Inventarios.
+* Módulo de Reportes.
