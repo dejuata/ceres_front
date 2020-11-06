@@ -30,7 +30,7 @@ export class ZonaService {
     return this.http.put<Zona>(`${this.endpoint}${id}/`, zona);
   }
 
-  deleteZona(id: number): Observable<Zona> {
+  deleteZona(id: string): Observable<Zona> {
     return this.http.delete<Zona>(`${this.endpoint}${id}`);
   }
 }

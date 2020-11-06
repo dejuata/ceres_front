@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { first } from 'rxjs/operators';
+
 
 import { ZonaService } from '@zona/services/zona.service';
 
@@ -17,6 +17,7 @@ export class ZonaAddEditComponent implements OnInit {
   id: string;
   isAddMode: boolean;
   loading = false;
+  title: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,6 +31,7 @@ export class ZonaAddEditComponent implements OnInit {
     this.isAddMode = !this.id;
     this.formInit();
     this.getZona();
+    this.title = this.isAddMode ? "Nueva Zona de Campo" : "Editar Zona de Campo";
   }
 
   formInit(): void {
@@ -55,17 +57,15 @@ export class ZonaAddEditComponent implements OnInit {
     }
   }
 
-  private getZona(): void {
+  getZona(): void {
     if (!this.isAddMode) {
       this.zonaService.getZonaById(this.id)
-      .pipe(first())
       .subscribe(data => this.zonaForm.patchValue(data));
     }
   }
 
-  private createZona(): void {
+  createZona(): void {
     this.zonaService.createZona(this.zonaForm.value)
-      .pipe(first())
       .subscribe({
         next: () => {
           alert("Zona Agregada")
@@ -103,9 +103,8 @@ export class ZonaAddEditComponent implements OnInit {
       */
   }
 
-  private updateZona(): void {
+  updateZona(): void {
     this.zonaService.updateZona(this.id, this.zonaForm.value)
-      //.pipe(first())
       .subscribe({
         next: () => {
           alert("Zona Actualizada");

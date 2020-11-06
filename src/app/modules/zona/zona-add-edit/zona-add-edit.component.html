@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <app-card cardTitle="Nueva Zona de Campo" [options]="true">
+    <app-card cardTitle="{{title}}" [options]="false">
       <form [formGroup]="zonaForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="form-group col-md-6">

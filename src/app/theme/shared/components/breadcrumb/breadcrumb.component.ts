@@ -159,7 +159,7 @@ export class BreadcrumbComponent implements OnInit {
         })
       }
     })
-    console.log("resultado", result)
+
     this.navigationList = result;
     this.titleService.setTitle(title + ' | CERES APP');
   }

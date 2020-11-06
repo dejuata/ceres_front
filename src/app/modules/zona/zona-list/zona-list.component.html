@@ -28,7 +28,7 @@
             <button type="button" class="btn btn-icon btn-info" routerLink="edit/{{item.id}}">
               <i class="feather icon-edit-2"></i>
             </button>
-            <button type="button" class="btn btn-icon btn-danger left-margin">
+            <button type="button" (click)="deleteZona(item.id)" class="btn btn-icon btn-danger left-margin">
               <i class="feather icon-trash-2"></i>
             </button>
           </td>
