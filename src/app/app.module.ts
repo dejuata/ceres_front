@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './theme/shared/shared.module';
 
@@ -44,7 +45,7 @@ import { ZonaModule } from './modules/zona/zona.module';
     NavSearchComponent,
     NavRightComponent,
     ConfigurationComponent,
-    ToggleFullScreenDirective
+    ToggleFullScreenDirective,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,9 @@ import { ZonaModule } from './modules/zona/zona.module';
     NgbButtonsModule,
     NgbTabsetModule,
     HomeModule,
-    ZonaModule
+    ZonaModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent]

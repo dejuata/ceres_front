@@ -36,7 +36,7 @@ const NavigationItems = [
         id: 'users',
         title: 'Usuarios',
         type: 'collapse',
-        icon: 'feather icon-file-text',
+        icon: 'feather icon-users',
         children: [
           {
             id: 'users_create',
@@ -50,7 +50,7 @@ const NavigationItems = [
             id: 'users_search',
             title: 'Consultar',
             type: 'item',
-            url: 'users/',
+            url: 'users/list',
             target: false,
             breadcrumbs: true
           }
@@ -68,7 +68,7 @@ const NavigationItems = [
         id: 'zona',
         title: 'Zonas de campo',
         type: 'collapse',
-        icon: 'feather icon-file-text',
+        icon: 'feather icon-sunset',
         children: [
           {
             id: 'zona_create',
@@ -82,7 +82,7 @@ const NavigationItems = [
             id: 'zona_search',
             title: 'Consultar',
             type: 'item',
-            url: 'zona',
+            url: '/zona/',
             target: false,
             breadcrumbs: true
           }
@@ -92,7 +92,7 @@ const NavigationItems = [
         id: 'labores',
         title: 'Labores de campo',
         type: 'collapse',
-        icon: 'feather icon-file-text',
+        icon: 'feather icon-feather',
         children: [
           {
             id: 'labores_create',

@@ -44,8 +44,10 @@ export class BreadcrumbComponent implements OnInit {
   filterNavigation(activeLink) {
     let result = [];
     let title = 'Welcome';
+    /*
     this.navigation.forEach((a) => {
       if (a.type === 'item' && 'url' in a && a.url === activeLink) {
+
         result = [
           {
             url: ('url' in a) ? a.url : false,
@@ -123,8 +125,44 @@ export class BreadcrumbComponent implements OnInit {
         }
       }
     });
+    */
+
+    let partsRoute = activeLink.split("/")
+    console.log(partsRoute);
+    partsRoute.forEach(elem => {
+      if(elem === "zona") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Zonas de campo",
+  ​​        url: '/zona/',
+        })
+      }
+      if(elem === "new") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Crear",
+  ​​        url: false,
+        })
+      }
+      if(elem === "detail") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Detalle",
+  ​​        url: false,
+        })
+      }
+
+      if(elem === "edit") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Editar",
+  ​​        url: false,
+        })
+      }
+    })
+    console.log("resultado", result)
     this.navigationList = result;
-    this.titleService.setTitle(title + ' | Flat Able Angular 9+ Admin Template');
+    this.titleService.setTitle(title + ' | CERES APP');
   }
 
 }

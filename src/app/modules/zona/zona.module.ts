@@ -4,11 +4,16 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../theme/shared/shared.module';
 
 import { ZonaRoutingModule } from './zona-routing.module';
-import { ZonaCreateComponent } from './zona-create/zona-create.component';
+import { ZonaListComponent } from './zona-list/zona-list.component';
+import { ZonaDetailsComponent } from './zona-details/zona-details.component';
+import { ZonaAddEditComponent } from './zona-add-edit/zona-add-edit.component';
 
 
 @NgModule({
-  declarations: [ZonaCreateComponent],
+  declarations: [
+    ZonaListComponent,
+    ZonaDetailsComponent,
+    ZonaAddEditComponent],
   imports: [
     CommonModule,
     ZonaRoutingModule,

@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Nueva Zona de Campo" [options]="true">
+      <form [formGroup]="zonaForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="">Código Zona</label>
+            <input type="text" class="form-control"
+              [ngClass]="{'invalid-input': f.id_zone.invalid && (f.id_zone.dirty || f.id_zone.touched)}"
+              formControlName="id_zone" placeholder="Código Zona de Campo">
+            <div class="invalid-input-feedback"
+              *ngIf="f.id_zone.errors?.required && (f.id_zone.dirty || f.id_zone.touched)">
+              El Código de la Zona es requerido
+            </div>
+            <div class="invalid-input-feedback" *ngIf="f.id_zone.errors?.serverError">
+              {{ f.id_zone.errors?.serverError }}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Ubicación</label>
+            <input type="text" class="form-control" [ngClass]="{'invalid-input': f.location.invalid && (f.location.dirty || f.location.touched)}" formControlName="location" placeholder="Ubicación">
+            <div class="invalid-input-feedback"
+              *ngIf="f.location.errors?.required && (f.location.dirty || f.location.touched)">
+              La Ubicación de la Zona es requerido
+            </div>
+            <div class="invalid-input-feedback" *ngIf="f.location.errors?.serverError">
+              {{ f.location.errors?.serverError }}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Tipo de Suelo</label>
+            <input type="text" class="form-control" formControlName="soil_type" placeholder="Tipo de suelo">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Tamaño</label>
+            <input type="text" class="form-control" formControlName="size" placeholder="Tamaño">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Estado</label>
+            <input type="text" class="form-control" formControlName="state" placeholder="Estado">
+          </div>
+
+          <div class="form-group col-md-12 mt-3">
+            <button [disabled]="!zonaForm.valid" type="submit" class="btn btn-primary col-md-12">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>
+

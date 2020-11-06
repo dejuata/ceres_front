@@ -1,0 +1,28 @@
+<app-card cardTitle="Detalle Zona de Campo" [options]="false">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for=""><strong>Código Zona</strong></label>
+      <p>{{ zona?.id_zone }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Ubicación</strong></label>
+      <p>{{ zona?.location }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Tipo de Suelo</strong></label>
+      <p>{{ zona?.soil_type }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Tamaño</strong></label>
+      <p>{{ zona?.size }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Estado</strong></label>
+      <p>{{ zona?.state }}</p>
+    </div>
+  </div>
+</app-card>

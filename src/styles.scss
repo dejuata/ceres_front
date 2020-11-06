@@ -7,3 +7,19 @@
 #main-logo {
   margin-top: -5px;
 }
+
+.left-margin {
+  margin-left: 10px;
+}
+
+.invalid-input-feedback {
+  /* display: none; */
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #e74c3c;
+}
+
+.invalid-input {
+  border-color: #e74c3c;
+}
