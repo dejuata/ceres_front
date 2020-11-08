@@ -21,6 +21,8 @@
     "paths": {
       "@environments/*":["src/environments/*"],
       "@zona/*":["src/app/modules/zona/*"],
+      "@home/*":["src/app/modules/home/*"],
+      "@auth/*":["src/app/modules/auth/*"],
       "@shared/*":["src/app/modules/shared/*"],
     }
   },

@@ -32,6 +32,8 @@ import { HomeModule } from './modules/home/home.module';
 import { ZonaModule } from '@zona/zona.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
 
+// import { authInterceptorProviders } from './_helpers/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
