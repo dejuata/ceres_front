@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ZonaService } from '@zona/services/zona.service';
 import { Zona } from '@zona/interfaces/zona.interface';
 
+import { language } from '@shared/datatable/language';
+
 @Component({
   selector: 'app-zona-list',
   templateUrl: './zona-list.component.html',
@@ -10,6 +12,7 @@ import { Zona } from '@zona/interfaces/zona.interface';
 export class ZonaListComponent implements OnInit {
 
   zonas: Zona[] = [];
+  dtOptions: DataTables.Settings = {};
 
   constructor(
     private zonaService: ZonaService
@@ -18,6 +21,7 @@ export class ZonaListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getZonas();
+    this.dataTableOptions();
   }
 
   getZonas(): void {
@@ -35,6 +39,12 @@ export class ZonaListComponent implements OnInit {
         this.zonas = this.zonas.filter(item => item.id != parseInt(id));
         alert("zona eliminada")
       })
+  }
+
+  dataTableOptions(): void {
+    this.dtOptions = {
+      language: language
+    };
   }
 
 }

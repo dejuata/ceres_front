@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './theme/shared/shared.module';
 
+
 import { AppComponent } from './app.component';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
@@ -61,7 +62,7 @@ import { SharedModule as ShModule } from '@shared/shared.module';
     ZonaModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ShModule
+    ShModule,
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent]

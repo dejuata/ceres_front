@@ -1,8 +1,8 @@
 <p>Componente de busqueda</p>
 <div class="col-md-12">
-  <app-card cardTitle="Zonas de Campo" cardClass="table-card">
-    <div class="table-responsive">
-      <table class="table table-hover">
+  <app-card cardTitle="Zonas de Campo" [options]="false" cardClass="table-card">
+    <div class="table-responsive table-padding">
+      <table datatable [dtOptions]="dtOptions" class="table table-hover">
         <thead>
         <tr>
           <th>Código Zona</th>
