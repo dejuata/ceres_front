@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../../theme/shared/shared.module';
+import { SharedModule as ShModule } from '@shared/shared.module';
 
 import { ZonaRoutingModule } from './zona-routing.module';
 import { ZonaListComponent } from './zona-list/zona-list.component';
@@ -17,7 +18,8 @@ import { ZonaAddEditComponent } from './zona-add-edit/zona-add-edit.component';
   imports: [
     CommonModule,
     ZonaRoutingModule,
-    SharedModule
+    SharedModule,
+    ShModule
   ]
 })
 export class ZonaModule { }
