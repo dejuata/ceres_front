@@ -31,7 +31,7 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
 import { HomeModule } from './modules/home/home.module';
 
 import { ZonaModule } from '@zona/zona.module';
-import { LaborModule } from '@shared/labor.module';
+import { LaborModule } from '@labor/module';
 import { SharedModule as ShModule } from '@shared/shared.module';
 
 @NgModule({
