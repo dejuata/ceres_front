@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -10,7 +10,8 @@ import { map, take } from 'rxjs/operators';
 export class CheckLoginGuard implements CanActivate {
 
   constructor (
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
 
   }
@@ -19,7 +20,14 @@ export class CheckLoginGuard implements CanActivate {
     return this.authService.isLogged
       .pipe(
         take(1),
-        map((isLogged: boolean) => !isLogged)
+        map((isLogged: boolean) => {
+          if (!isLogged) {
+            return true;
+          } else {
+            this.router.navigate(['dashboard/home'])
+            return false;
+          }
+        })
       )
   }
 

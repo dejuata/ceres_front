@@ -7,10 +7,31 @@ import { CheckLoginGuard } from '@shared/guards/check-login.guard';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: '/dashboard/home',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: AuthComponent,
+    canActivate: [CheckLoginGuard],
+    children: [
+      {
+        path: 'auth',
+        loadChildren: () => import('@auth/auth.module').then(module => module.AuthModule),
+      }
+    ]
+  },
+  {
+    path: 'dashboard',
     component: AdminComponent,
     children: [
       {
         path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home',
         loadChildren: () => import('@home/home.module').then(module => module.HomeModule)
       },
       {
@@ -20,35 +41,6 @@ const routes: Routes = [
       {
         path: 'labor',
         loadChildren: () => import('@labor/labor.module').then(module => module.LaborModule)
-      },
-      {
-        path: '',
-        redirectTo: '/',
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        redirectTo: '/'
-      }
-    ]
-  },
-  {
-    path: 'auth',
-    component: AuthComponent,
-    canActivate: [CheckLoginGuard],
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('@auth/auth.module').then(module => module.AuthModule),
-      },
-      {
-        path: '',
-        redirectTo: '/',
-        pathMatch: 'full'
-      },
-      {
-        path: '**',
-        redirectTo: '/'
       }
     ]
   }

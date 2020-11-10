@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { NextConfig } from '../../../app-config';
 import { Location } from '@angular/common';
+import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +14,7 @@ export class AdminComponent implements OnInit {
   public navCollapsedMob: boolean;
   public windowWidth: number;
 
-  constructor(private zone: NgZone, private location: Location) {
+  constructor(public authService: AuthService, private zone: NgZone, private location: Location) {
     this.flatConfig = NextConfig.config;
     let currentURL = this.location.path();
     const baseHerf = this.location['_baseHref'];
