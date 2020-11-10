@@ -1,1 +1,44 @@
-<p>auth-signin works!</p>
+<div class="auth-wrapper">
+  <div class="auth-content text-center">
+    <div class="card borderless">
+      <div class="row align-items-center text-center">
+        <div class="col-md-12">
+          <div class="card-body">
+            <img src="assets/images/auth/auth-logo.png" alt="" class="img-fluid mb-4">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+              <div class="form-group mb-3">
+                <input type="email" [ngClass]="{'invalid-input': f.email.invalid && (f.email.dirty || f.email.touched)}"
+                  formControlName="email" class="form-control" placeholder="Correo Electrónico">
+
+                <label class="invalid-input-feedback text-left"
+                  *ngIf="f.email.hasError('email')  && (f.email.dirty || f.email.touched)">
+                  ¡Introduzca una dirección de correo electrónico válida!
+                </label>
+                <label class="invalid-input-feedback text-left"
+                  *ngIf="f.email.hasError('required')  && (f.email.dirty || f.email.touched)">
+                  El Correo Electrónico es requerido
+                </label>
+              </div>
+
+
+              <div class="form-group mb-4">
+                <input type="password"
+                  [ngClass]="{'invalid-input': f.password.invalid && (f.password.dirty || f.password.touched)}"
+                  formControlName="password" class="form-control" placeholder="Contraseña">
+                <label class="invalid-input-feedback text-left"
+                  *ngIf="f.password.hasError('required')  && (f.password.dirty || f.password.touched)">
+                  La contraseña es requerida
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-block btn-primary mb-4">Ingresar</button>
+            </form>
+            <p class="mb-2 text-muted">¿ Olvidó su contraseña ? <a [routerLink]="['/auth/reset-password']"
+                class="f-w-400">Recuperar</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
