@@ -3,6 +3,7 @@
 <div class="pcoded-main-container">
     <div class="pcoded-content" [ngClass]="{'container': this.flatConfig.layout === 'horizontal' && this.flatConfig.subLayout === 'horizontal-2'}">
       <app-breadcrumb></app-breadcrumb>
+      <app-alert></app-alert>
       <router-outlet></router-outlet>
     </div>
 </div>

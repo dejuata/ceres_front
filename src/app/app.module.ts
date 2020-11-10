@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './theme/shared/shared.module';
 
+
 import { AppComponent } from './app.component';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
@@ -28,8 +29,10 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
 
 // Modulos Aplicacion
 import { HomeModule } from './modules/home/home.module';
-import { ZonaModule } from './modules/zona/zona.module';
-import { LaborModule } from './modules/labor/module';
+
+import { ZonaModule } from '@zona/zona.module';
+import { LaborModule } from '@shared/labor.module';
+import { SharedModule as ShModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,8 @@ import { LaborModule } from './modules/labor/module';
     HomeModule,
     ZonaModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ShModule,
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent]

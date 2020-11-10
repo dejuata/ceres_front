@@ -22,6 +22,7 @@
       "@environments/*":["src/environments/*"],
       "@zona/*":["src/app/modules/zona/*"],
       "@labor/*":["src/app/modules/labor/*"],
+      "@shared/*":["src/app/modules/shared/*"],
     }
   },
   "angularCompilerOptions": {
