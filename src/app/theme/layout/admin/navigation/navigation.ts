@@ -131,7 +131,7 @@ const NavigationItems = [
             id: 'labores_search',
             title: 'Consultar',
             type: 'item',
-            url: '',
+            url: '/labor/',
             target: false,
             breadcrumbs: true
           }

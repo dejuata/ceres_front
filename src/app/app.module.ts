@@ -29,7 +29,9 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
 
 // Modulos Aplicacion
 import { HomeModule } from './modules/home/home.module';
+
 import { ZonaModule } from '@zona/zona.module';
+import { LaborModule } from '@labor/labor.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
 
 // import { authInterceptorProviders } from './_helpers/auth.interceptor';
@@ -65,6 +67,7 @@ import { SharedModule as ShModule } from '@shared/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     ShModule,
+    LaborModule
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent]

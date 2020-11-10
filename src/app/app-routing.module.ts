@@ -18,6 +18,10 @@ const routes: Routes = [
         loadChildren: () => import('@zona/zona.module').then(module => module.ZonaModule)
       },
       {
+        path: 'labor',
+        loadChildren: () => import('@labor/labor.module').then(module => module.LaborModule)
+      },
+      {
         path: '',
         redirectTo: '/',
         pathMatch: 'full'
