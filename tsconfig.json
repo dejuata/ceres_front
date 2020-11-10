@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@environments/*":["src/environments/*"],
-      "@zona/*":["src/app/modules/zona/*"]
+      "@zona/*":["src/app/modules/zona/*"],
+      "@labor/*":["src/app/modules/labor/*"],
     }
   },
   "angularCompilerOptions": {

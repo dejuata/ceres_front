@@ -29,6 +29,7 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
 // Modulos Aplicacion
 import { HomeModule } from './modules/home/home.module';
 import { ZonaModule } from './modules/zona/zona.module';
+import { LaborModule } from './modules/labor/module';
 
 @NgModule({
   declarations: [

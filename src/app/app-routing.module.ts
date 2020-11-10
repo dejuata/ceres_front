@@ -17,6 +17,10 @@ const routes: Routes = [
         path: 'zona',
         loadChildren: () => import('./modules/zona/zona.module').then(module => module.ZonaModule)
       },
+      {
+        path: 'labor',
+        loadChildren: () => import('./modules/labor/module').then(module => module.LaborModule)
+      },
     ]
   },
 ];
