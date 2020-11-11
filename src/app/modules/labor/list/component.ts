@@ -4,8 +4,8 @@ import { Labor } from '@labor/interfaces/labor.interface';
 
 @Component({
   selector: 'app-labor-list',
-  templateUrl: './labor-list.component.html',
-  styleUrls: ['./labor-list.component.scss']
+  templateUrl: './component.html',
+  styleUrls: ['./component.scss']
 })
 
 export class LaborListComponent implements OnInit {
@@ -25,6 +25,14 @@ export class LaborListComponent implements OnInit {
         this.labors = data;
       }, err => {
         console.log(err)
+      })
+  }
+
+  deleteLabor(id: string): void {
+    this.laborService.deleteLabor(id)
+      .subscribe(() => {
+        this.labors = this.labors.filter(item => item.id != parseInt(id));
+        alert("Labor eliminada")
       })
   }
 }

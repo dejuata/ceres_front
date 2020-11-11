@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../theme/shared/shared.module';
 
 import { LaborRoutingModule } from './routing.module';
-import { LaborListComponent } from './labor-list/labor-list.component';
+import { LaborListComponent } from './list/component';
+import { LaborDetailsComponent } from './details/component';
+import { LaborAddEditComponent } from './add-edit/component';
 
 @NgModule({
   declarations: [
     LaborListComponent,
+    LaborDetailsComponent,
+    LaborAddEditComponent,
   ],
   imports: [
     CommonModule,
