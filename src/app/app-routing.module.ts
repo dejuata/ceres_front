@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
 import { CheckLoginGuard } from '@shared/guards/check-login.guard';
+import { CheckRouteLoginGuard } from '@shared/guards/check-route-login.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
-    canActivate: [CheckLoginGuard],
+    canActivate: [CheckRouteLoginGuard],
     children: [
       {
         path: 'auth',
@@ -24,6 +25,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: AdminComponent,
+    canActivate: [CheckLoginGuard],
     children: [
       {
         path: '',

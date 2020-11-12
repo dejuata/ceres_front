@@ -13,8 +13,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.isRole.subscribe(res =>{
-      console.log("respuesta",res);
+    this.authService.isRole.subscribe(res => {
+      console.log("Rol", res);
     })
   }
 

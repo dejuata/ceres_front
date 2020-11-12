@@ -77,21 +77,8 @@ export class ZonaAddEditComponent implements OnInit {
           this.zonaForm.reset();
         },
         error: error => {
-          if (error instanceof HttpErrorResponse){
-            const validationErrors = error.error;
-            if (error.status === 400) {
-              Object.keys(validationErrors).forEach(prop => {
-                const formControl = this.zonaForm.get(prop);
-                if (formControl) {
-                  // activate the error message
-                  formControl.setErrors({
-                    serverError: validationErrors[prop]
-                  });
-                }
-                this.alertService.error("La Zona de Campo no ha sido creada");
-              });
-            }
-          }
+          this.handlerError(error);
+          this.alertService.error("La Zona de Campo no ha sido creada");
           this.loading = false;
         }
       })
@@ -111,4 +98,35 @@ export class ZonaAddEditComponent implements OnInit {
       })
   }
 
+  handlerError(error) {
+    if (error instanceof HttpErrorResponse){
+      const validationErrors = error.error;
+      if (error.status === 400) {
+        Object.keys(validationErrors).forEach(prop => {
+          const formControl = this.zonaForm.get(prop);
+          if (formControl) {
+            formControl.setErrors({
+              serverError: validationErrors[prop]
+            });
+          }
+        });
+      }
+    }
+  }
+
+  getErrorMessage(field: string): string {
+    let message = '';
+    if (this.zonaForm.get(field).errors.required) {
+      message = 'El Campo es requerido.';
+    }
+    return message;
+  }
+
+  isValidField(field: string) {
+    let touched = this.zonaForm.get(field).touched;
+    let dirty = this.zonaForm.get(field).dirty;
+    let invalid = !this.zonaForm.get(field).valid;
+
+    return (touched || dirty) && invalid;
+  }
 }

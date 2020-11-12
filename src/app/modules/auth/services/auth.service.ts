@@ -14,9 +14,19 @@ const helper = new JwtHelperService();
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
+  private role = new BehaviorSubject<string>(null);
+  private userToken = new BehaviorSubject<string>(null);
 
   get isLogged(): Observable<boolean> {
     return this.loggedIn.asObservable();
+  }
+
+  get isRole(): Observable<string> {
+    return this.role.asObservable();
+  }
+
+  get userTokenValue(): string {
+    return this.userToken.getValue();
   }
 
   constructor(
@@ -29,30 +39,45 @@ export class AuthService {
   login(authData: User): Observable<UserResponse | void> {
     return this.http.post<UserResponse>(`${environment.baseUrl}/auth/login`, authData)
       .pipe(
-        map((res: UserResponse) => {
-          this.saveToken(res.access);
+        map((user: UserResponse) => {
+          this.saveLocalStorage(user);
           this.loggedIn.next(true);
-          return res;
+          this.role.next(user.authenticatedUser.role)
+          this.userToken.next(user.access)
+          return user;
         }),
         catchError((err) => this.handlerError(err))
       );
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.loggedIn.next(false)
+    localStorage.removeItem('user');
+    this.loggedIn.next(false);
+    this.role.next(null);
+    this.userToken.next(null)
     this.router.navigate(['auth/signin'])
   }
 
   private checkToken() {
-    const userToken = localStorage.getItem('token');
-    const isExpired = helper.isTokenExpired(userToken);
-    console.log("isExpired", isExpired);
-    isExpired ? this.logout() : this.loggedIn.next(true);
+    const user = JSON.parse(localStorage.getItem('user')) || null;
+    if (user) {
+      const isExpired = helper.isTokenExpired(user.token);
+      if (isExpired) {
+        this.logout();
+      } else {
+        this.loggedIn.next(true);
+        this.role.next(user.role)
+        this.userToken.next(user.token)
+      }
+    }
   }
 
-  private saveToken(token: string) {
-    localStorage.setItem('token', token)
+  private saveLocalStorage(user: UserResponse) {
+    let data = {
+      "token": user.access,
+      "role": user.authenticatedUser.role
+    }
+    localStorage.setItem('user', JSON.stringify(data));
   }
 
   private handlerError(err): Observable<never> {
@@ -60,7 +85,7 @@ export class AuthService {
     if(err) {
       errorMessage = `Error: code ${err.message}`;
     }
-    window.alert(errorMessage)
+    // window.alert(errorMessage)
     return throwError(errorMessage);
   }
 }

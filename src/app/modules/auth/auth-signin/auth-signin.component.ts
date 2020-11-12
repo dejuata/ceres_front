@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AuthService } from '@auth/services/auth.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth-signin',
@@ -11,7 +12,7 @@ import { AuthService } from '@auth/services/auth.service';
 })
 export class AuthSigninComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription = new Subscription();
+  private destroy$ = new Subject<any>();
   loginForm: FormGroup;
 
   constructor(
@@ -25,7 +26,8 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next({});
+    this.destroy$.complete();
   }
 
   formInit(): void {
@@ -49,14 +51,13 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
 
   onLogin(): void {
     if (this.loginForm.valid) {
-      this.subscription.add(
-        this.authService.login(this.loginForm.value)
+      this.authService.login(this.loginForm.value)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(res => {
-          if (res) {
-            this.router.navigate(['dashboard'])
-          }
-        })
-      );
+            if (res) {
+              this.router.navigate(['dashboard'])
+            }
+          })
     }
   }
 
@@ -74,7 +75,7 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     return message;
   }
 
-  isValidField(field: string) {
+  isValidField(field: string): boolean {
     let touched = this.loginForm.get(field).touched;
     let dirty = this.loginForm.get(field).dirty;
     let invalid = !this.loginForm.get(field).valid;

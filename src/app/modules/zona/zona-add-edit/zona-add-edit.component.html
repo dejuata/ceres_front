@@ -5,12 +5,10 @@
         <div class="row">
           <div class="form-group col-md-6">
             <label for="">Código Zona</label>
-            <input type="text" class="form-control"
-              [ngClass]="{'invalid-input': f.id_zone.invalid && (f.id_zone.dirty || f.id_zone.touched)}"
+            <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('id_zone')}"
               formControlName="id_zone" placeholder="Código Zona de Campo">
-            <div class="invalid-input-feedback"
-              *ngIf="f.id_zone.errors?.required && (f.id_zone.dirty || f.id_zone.touched)">
-              El Código de la Zona es requerido
+            <div class="invalid-input-feedback" *ngIf="isValidField('id_zone')">
+              {{ getErrorMessage('id_zone')}}
             </div>
             <div class="invalid-input-feedback" *ngIf="f.id_zone.errors?.serverError">
               {{ f.id_zone.errors?.serverError }}
@@ -19,10 +17,10 @@
 
           <div class="form-group col-md-6">
             <label for="">Ubicación</label>
-            <input type="text" class="form-control" [ngClass]="{'invalid-input': f.location.invalid && (f.location.dirty || f.location.touched)}" formControlName="location" placeholder="Ubicación">
-            <div class="invalid-input-feedback"
-              *ngIf="f.location.errors?.required && (f.location.dirty || f.location.touched)">
-              La Ubicación de la Zona es requerido
+            <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('location')}"
+              formControlName="location" placeholder="Ubicación">
+            <div class="invalid-input-feedback" *ngIf="isValidField('location')">
+              {{ getErrorMessage('location')}}
             </div>
             <div class="invalid-input-feedback" *ngIf="f.location.errors?.serverError">
               {{ f.location.errors?.serverError }}
@@ -55,4 +53,3 @@
     </app-card>
   </div>
 </div>
-

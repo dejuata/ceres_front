@@ -7,7 +7,7 @@ import { map, take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class CheckLoginGuard implements CanActivate {
+export class CheckRouteLoginGuard implements CanActivate {
 
   constructor (
     private authService: AuthService,
@@ -21,12 +21,14 @@ export class CheckLoginGuard implements CanActivate {
       .pipe(
         take(1),
         map((isLogged: boolean) => {
-          if (isLogged) {
+          // si el usuario esta logueado no mostrar login
+          if (!isLogged) {
             return true;
           } else {
-            this.router.navigate(['auth/signin'])
+            this.router.navigate(['dashboard/home'])
             return false;
           }
+
         })
       )
   }
