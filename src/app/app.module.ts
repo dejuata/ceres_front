@@ -31,6 +31,7 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
 import { HomeModule } from './modules/home/home.module';
 import { ZonaModule } from '@zona/zona.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
+import { UsuarioModule } from '@usuario/usuario.module';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { SharedModule as ShModule } from '@shared/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     ShModule,
+    UsuarioModule,
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent]

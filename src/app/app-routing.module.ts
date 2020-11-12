@@ -17,6 +17,10 @@ const routes: Routes = [
         path: 'zona',
         loadChildren: () => import('./modules/zona/zona.module').then(module => module.ZonaModule)
       },
+      {
+        path: 'usuario',
+        loadChildren: () => import('./modules/usuario/usuario.module').then(module => module.UsuarioModule)
+      },
     ]
   },
 ];
