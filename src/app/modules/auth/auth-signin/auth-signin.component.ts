@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthService } from '@auth/services/auth.service';
 import { takeUntil } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from '@shared/alert/services/alert.service';
 
 @Component({
   selector: 'app-auth-signin',
@@ -18,7 +20,8 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +48,10 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     });
   }
 
+  get f() {
+    return this.loginForm.controls;
+  }
+
   onSubmit(): void {
     this.onLogin();
   }
@@ -53,11 +60,14 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value)
         .pipe(takeUntil(this.destroy$))
-        .subscribe(res => {
-            if (res) {
-              this.router.navigate(['dashboard'])
-            }
-          })
+        .subscribe({
+          next: () => {
+            this.router.navigate(['dashboard']);
+          },
+          error: error => {
+            this.handlerError(error)
+          }
+        })
     }
   }
 
@@ -81,6 +91,24 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     let invalid = !this.loginForm.get(field).valid;
 
     return (touched || dirty) && invalid;
+  }
+
+  handlerError(error) {
+    if (error instanceof HttpErrorResponse){
+      const validationErrors = error.error;
+
+      if (error.status === 400) {
+        console.log("estoy aqui", validationErrors)
+        const formControl = [this.loginForm.get('email'), this.loginForm.get('password')];
+        if (formControl) {
+          formControl.forEach(elem => {
+            elem.setErrors({
+              serverError: 'Credenciales Invalidas'
+            });
+          })
+        }
+      }
+    }
   }
 
 }

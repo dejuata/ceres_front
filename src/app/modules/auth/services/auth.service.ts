@@ -13,21 +13,7 @@ const helper = new JwtHelperService();
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedIn = new BehaviorSubject<boolean>(false);
-  private role = new BehaviorSubject<string>(null);
-  private userToken = new BehaviorSubject<string>(null);
-
-  get isLogged(): Observable<boolean> {
-    return this.loggedIn.asObservable();
-  }
-
-  get isRole(): Observable<string> {
-    return this.role.asObservable();
-  }
-
-  get userTokenValue(): string {
-    return this.userToken.getValue();
-  }
+  private user = new BehaviorSubject<UserResponse>(null);
 
   constructor(
     private router: Router,
@@ -36,25 +22,29 @@ export class AuthService {
     this.checkToken();
   }
 
+  get user$ (): Observable<UserResponse> {
+    return this.user.asObservable();
+  }
+
+  get userValue (): UserResponse {
+    return this.user.getValue();
+  }
+
   login(authData: User): Observable<UserResponse | void> {
     return this.http.post<UserResponse>(`${environment.baseUrl}/auth/login`, authData)
       .pipe(
         map((user: UserResponse) => {
           this.saveLocalStorage(user);
-          this.loggedIn.next(true);
-          this.role.next(user.authenticatedUser.role)
-          this.userToken.next(user.access)
+          this.user.next(user);
           return user;
         }),
-        catchError((err) => this.handlerError(err))
+        // catchError((err) => this.handlerError(err))
       );
   }
 
   logout() {
     localStorage.removeItem('user');
-    this.loggedIn.next(false);
-    this.role.next(null);
-    this.userToken.next(null)
+    this.user.next(null);
     this.router.navigate(['auth/signin'])
   }
 
@@ -65,9 +55,8 @@ export class AuthService {
       if (isExpired) {
         this.logout();
       } else {
-        this.loggedIn.next(true);
-        this.role.next(user.role)
-        this.userToken.next(user.token)
+        // Esto puede causar un error ya que el user que paso no es el mismo UserResponse
+        this.user.next(user);
       }
     }
   }
@@ -85,7 +74,6 @@ export class AuthService {
     if(err) {
       errorMessage = `Error: code ${err.message}`;
     }
-    // window.alert(errorMessage)
     return throwError(errorMessage);
   }
 }

@@ -3,6 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { UserResponse } from '@auth/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CheckLoginGuard implements CanActivate {
   }
 
   canActivate(): Observable<boolean> {
-    return this.authService.isLogged
+/*     return this.authService.isLogged
       .pipe(
         take(1),
         map((isLogged: boolean) => {
@@ -28,7 +29,19 @@ export class CheckLoginGuard implements CanActivate {
             return false;
           }
         })
-      )
+      ) */
+      return this.authService.user$
+        .pipe(
+          take(1),
+          map((user: UserResponse) => {
+            if (user) {
+              return true;
+            } else {
+              this.router.navigate(['auth/signin'])
+              return false;
+            }
+          })
+        )
   }
 
 }

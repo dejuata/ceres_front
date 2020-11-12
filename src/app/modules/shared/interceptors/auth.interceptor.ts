@@ -16,10 +16,10 @@ export class AuthInterceptor implements HttpInterceptor {
     if (req.url.includes('auth')) {
       return next.handle(req);
     }
-    const authToken = this.authService.userTokenValue;
+    const user = this.authService.userValue;
     const authReq = req.clone({
       setHeaders: {
-        Authorization: `JWT ${authToken}`
+        Authorization: `JWT ${user.access}`
       }
     })
     return next.handle(authReq);
