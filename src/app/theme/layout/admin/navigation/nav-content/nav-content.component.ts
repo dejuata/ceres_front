@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit, Out
 import { NavigationItem } from '../navigation';
 import { NextConfig } from '../../../../../app-config';
 import { Location } from '@angular/common';
+import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-nav-content',
@@ -19,12 +20,23 @@ export class NavContentComponent implements OnInit, AfterViewInit {
   public windowWidth: number;
   public isNavProfile: boolean;
 
+  public user = {
+    name: '',
+    rol: ''
+  }
+
+
   @Output() onNavMobCollapse = new EventEmitter();
 
   @ViewChild('navbarContent') navbarContent: ElementRef;
   @ViewChild('navbarWrapper') navbarWrapper: ElementRef;
 
-  constructor(public nav: NavigationItem, private zone: NgZone, private location: Location) {
+  constructor(
+    public nav: NavigationItem,
+    private zone: NgZone,
+    private location: Location,
+    private authService: AuthService
+  ) {
     this.flatConfig = NextConfig.config;
     this.windowWidth = window.innerWidth;
 
@@ -45,6 +57,25 @@ export class NavContentComponent implements OnInit, AfterViewInit {
         (document.querySelector('#nav-ps-flat-able') as HTMLElement).style.maxHeight = '100%';
       }, 500);
     }
+
+    // Inicializar nombre user y rol
+    this.viewDataUser();
+  }
+
+  viewDataUser(): void {
+    this.user.name = this.authService.userValue.authenticatedUser.name;
+    let rol = {
+      "1": "Administrador",
+      "2": "Empleado",
+      "3": "Jefe de Campo",
+      "4": "Operario"
+    }
+
+    this.user.rol = rol[this.authService.userValue.authenticatedUser.role];
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
   ngAfterViewInit() {

@@ -24,7 +24,7 @@
               <label class="invalid-input-feedback" *ngIf="f.email.errors?.serverError">
                 <strong>Credenciales Invalidas!</strong>
               </label>
-              <button type="submit" [disabled]="loginForm.invalid" class="btn btn-block btn-primary mb-4">Ingresar</button>
+              <button type="submit" [disabled]="" class="btn btn-block btn-primary mb-4">Ingresar</button>
             </form>
             <p class="mb-2 text-muted">
               <a [routerLink]="['/auth/reset-password']" class="f-w-400">

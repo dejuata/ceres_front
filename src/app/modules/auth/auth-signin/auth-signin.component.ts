@@ -98,7 +98,6 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
       const validationErrors = error.error;
 
       if (error.status === 400) {
-        console.log("estoy aqui", validationErrors)
         const formControl = [this.loginForm.get('email'), this.loginForm.get('password')];
         if (formControl) {
           formControl.forEach(elem => {

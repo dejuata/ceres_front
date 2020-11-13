@@ -13,9 +13,11 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  /*   this.authService.isRole.subscribe(res => {
-      console.log("Rol", res);
-    }) */
+    this.authService.user$.subscribe(user => {
+      console.log("mama", user);
+    })
+
+    console.log("usuario",this.authService.userValue)
   }
 
   onLogout() {

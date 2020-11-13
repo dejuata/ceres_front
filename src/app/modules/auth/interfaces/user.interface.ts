@@ -10,6 +10,7 @@ export interface UserResponse {
   refresh: string
   authenticatedUser: {
     email: string,
-    role: string
+    role: string,
+    name: string
   }
 }
