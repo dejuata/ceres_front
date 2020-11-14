@@ -1,0 +1,34 @@
+.custom-alert {
+  width: 300px;
+}
+
+.modal-backdrop.in {
+  opacity: 0.9;
+}
+
+.modal-body {
+  background-color: whitesmoke;
+  border-radius: 11px;
+}
+
+.modal {
+  background-color: rgba(58, 51, 51, 0.4);
+  padding-top: 5px;
+}
+
+.confirm-message {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+.body-message {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.body-custom {
+  padding: 50px 20px;
+}

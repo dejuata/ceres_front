@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './theme/shared/shared.module';
@@ -30,8 +30,10 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
 // Modulos Aplicacion
 import { HomeModule } from './modules/home/home.module';
 import { ZonaModule } from '@zona/zona.module';
+import { LaborModule } from '@labor/labor.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
 import { UsuarioModule } from '@usuario/usuario.module';
+import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -65,8 +67,16 @@ import { UsuarioModule } from '@usuario/usuario.module';
     ReactiveFormsModule,
     ShModule,
     UsuarioModule,
+    LaborModule,
   ],
-  providers: [NavigationItem],
+  providers: [
+    NavigationItem,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { DataTablesModule } from 'angular-datatables';
 
 import { AlertComponent } from './alert/alert.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
-    AlertComponent
+    AlertComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -14,7 +16,8 @@ import { AlertComponent } from './alert/alert.component';
   ],
   exports: [
     AlertComponent,
-    DataTablesModule
+    DataTablesModule,
+    ConfirmationDialogComponent
   ]
 })
 export class SharedModule { }

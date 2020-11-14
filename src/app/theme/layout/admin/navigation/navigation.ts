@@ -92,14 +92,13 @@ const NavigationItems = [
         id: 'zona',
         title: 'Zonas de campo',
         type: 'collapse',
-        url: '/zona',
         icon: 'feather icon-sunset',
         children: [
           {
             id: 'zona_create',
             title: 'Crear',
             type: 'item',
-            url: '/zona/new',
+            url: 'zona/new',
             target: false,
             breadcrumbs: true
           },
@@ -107,7 +106,7 @@ const NavigationItems = [
             id: 'zona_search',
             title: 'Consultar',
             type: 'item',
-            url: '/zona/',
+            url: 'zona/',
             target: false,
             breadcrumbs: true
           }
@@ -123,7 +122,7 @@ const NavigationItems = [
             id: 'labores_create',
             title: 'Crear',
             type: 'item',
-            url: 'labor/new',
+	    url: '/labor/new',
             target: false,
             breadcrumbs: true
           },
@@ -131,7 +130,7 @@ const NavigationItems = [
             id: 'labores_search',
             title: 'Consultar',
             type: 'item',
-            url: '',
+            url: '/labor/',
             target: false,
             breadcrumbs: true
           }

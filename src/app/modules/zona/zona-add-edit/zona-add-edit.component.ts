@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-
-
+import { Location } from '@angular/common'
 import { ZonaService } from '@zona/services/zona.service';
 import { AlertService } from '@shared/alert/services/alert.service';
 
@@ -25,7 +24,8 @@ export class ZonaAddEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private zonaService: ZonaService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +61,10 @@ export class ZonaAddEditComponent implements OnInit {
     }
   }
 
+  cancel(): void {
+    this.location.back();
+  }
+
   getZona(): void {
     if (!this.isAddMode) {
       this.zonaService.getZonaById(this.id)
@@ -77,21 +81,8 @@ export class ZonaAddEditComponent implements OnInit {
           this.zonaForm.reset();
         },
         error: error => {
-          if (error instanceof HttpErrorResponse){
-            const validationErrors = error.error;
-            if (error.status === 400) {
-              Object.keys(validationErrors).forEach(prop => {
-                const formControl = this.zonaForm.get(prop);
-                if (formControl) {
-                  // activate the error message
-                  formControl.setErrors({
-                    serverError: validationErrors[prop]
-                  });
-                }
-                this.alertService.error("La Zona de Campo no ha sido creada");
-              });
-            }
-          }
+          this.handlerError(error);
+          this.alertService.error("La Zona de Campo no ha sido creada");
           this.loading = false;
         }
       })
@@ -111,4 +102,35 @@ export class ZonaAddEditComponent implements OnInit {
       })
   }
 
+  handlerError(error) {
+    if (error instanceof HttpErrorResponse){
+      const validationErrors = error.error;
+      if (error.status === 400) {
+        Object.keys(validationErrors).forEach(prop => {
+          const formControl = this.zonaForm.get(prop);
+          if (formControl) {
+            formControl.setErrors({
+              serverError: validationErrors[prop]
+            });
+          }
+        });
+      }
+    }
+  }
+
+  getErrorMessage(field: string): string {
+    let message = '';
+    if (this.zonaForm.get(field).errors.required) {
+      message = 'El Campo es requerido.';
+    }
+    return message;
+  }
+
+  isValidField(field: string) {
+    let touched = this.zonaForm.get(field).touched;
+    let dirty = this.zonaForm.get(field).dirty;
+    let invalid = !this.zonaForm.get(field).valid;
+
+    return (touched || dirty) && invalid;
+  }
 }
