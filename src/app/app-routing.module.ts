@@ -41,9 +41,13 @@ const routes: Routes = [
         loadChildren: () => import('@zona/zona.module').then(module => module.ZonaModule)
       },
       {
+        path: 'usuario',
+        loadChildren: () => import('./modules/usuario/usuario.module').then(module => module.UsuarioModule)
+      },
+      {
         path: 'labor',
         loadChildren: () => import('@labor/labor.module').then(module => module.LaborModule)
-      }
+      },
     ]
   }
 ];

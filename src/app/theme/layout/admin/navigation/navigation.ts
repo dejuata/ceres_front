@@ -33,24 +33,24 @@ const NavigationItems = [
     icon: 'feather icon-monitor',
     children: [
       {
-        id: 'users',
+        id: 'usuario',
         title: 'Usuarios',
         type: 'collapse',
         icon: 'feather icon-users',
         children: [
           {
-            id: 'users_create',
+            id: 'usuario_create',
             title: 'Crear',
             type: 'item',
-            url: '/users/new',
+            url: '/usuario/new',
             target: false,
             breadcrumbs: true
           },
           {
-            id: 'users_search',
+            id: 'usuario_search',
             title: 'Consultar',
             type: 'item',
-            url: 'users/list',
+            url: '/usuario/',
             target: false,
             breadcrumbs: true
           }

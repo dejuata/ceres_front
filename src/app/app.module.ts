@@ -32,6 +32,7 @@ import { HomeModule } from './modules/home/home.module';
 import { ZonaModule } from '@zona/zona.module';
 import { LaborModule } from '@labor/labor.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
+import { UsuarioModule } from '@usuario/usuario.module';
 import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 
 @NgModule({
@@ -65,7 +66,8 @@ import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     ShModule,
-    LaborModule
+    UsuarioModule,
+    LaborModule,
   ],
   providers: [
     NavigationItem,
