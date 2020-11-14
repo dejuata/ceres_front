@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-
-
+import { Location } from '@angular/common'
 import { ZonaService } from '@zona/services/zona.service';
 import { AlertService } from '@shared/alert/services/alert.service';
 
@@ -25,7 +24,8 @@ export class ZonaAddEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private zonaService: ZonaService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -59,6 +59,10 @@ export class ZonaAddEditComponent implements OnInit {
     } else {
         this.updateZona();
     }
+  }
+
+  cancel(): void {
+    this.location.back();
   }
 
   getZona(): void {

@@ -4,7 +4,7 @@
       <form [formGroup]="zonaForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="form-group col-md-6">
-            <label for="">Código Zona</label>
+            <label for="">Código Zona de Campo</label>
             <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('id_zone')}"
               formControlName="id_zone" placeholder="Código Zona de Campo">
             <div class="invalid-input-feedback" *ngIf="isValidField('id_zone')">
@@ -16,6 +16,34 @@
           </div>
 
           <div class="form-group col-md-6">
+            <label for="">Tamaño</label>
+            <input type="text" class="form-control" formControlName="size" placeholder="Tamaño">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Tipo de Suelo</label>
+            <select class="form-control" formControlName="soil_type">
+              <option disabled selected>Seleccione una opción</option>
+              <option value="Arcilloso">Arcilloso</option>
+              <option value="Calizo">Calizo</option>
+              <option value="Limoso">Limoso</option>
+              <option value="Arenoso">Arenoso</option>
+              <option value="Franco">Franco</option>
+              <option value="Salino">Salino</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Estado</label>
+            <select class="form-control" formControlName="soil_type">
+              <option disabled selected>Seleccione una opción</option>
+              <option value="Arcilloso">En Preparación</option>
+              <option value="Calizo">Siembra</option>
+              <option value="Limoso">Escarda</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-12">
             <label for="">Ubicación</label>
             <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('location')}"
               formControlName="location" placeholder="Ubicación">
@@ -27,25 +55,13 @@
             </div>
           </div>
 
-          <div class="form-group col-md-6">
-            <label for="">Tipo de Suelo</label>
-            <input type="text" class="form-control" formControlName="soil_type" placeholder="Tipo de suelo">
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="">Tamaño</label>
-            <input type="text" class="form-control" formControlName="size" placeholder="Tamaño">
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="">Estado</label>
-            <input type="text" class="form-control" formControlName="state" placeholder="Estado">
-          </div>
-
-          <div class="form-group col-md-12 mt-3">
-            <button [disabled]="!zonaForm.valid" type="submit" class="btn btn-primary col-md-12">
+          <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">
+            <button [disabled]="!zonaForm.valid" type="submit" class="btn btn-primary col-md-2">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               Guardar
+            </button>
+            <button type="button" class="btn btn-danger col-md-2 ml-3" (click)="cancel()">
+              Cancelar
             </button>
           </div>
         </div>

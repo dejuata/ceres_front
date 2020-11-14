@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '@auth/services/auth.service';
+import { ConfirmationDialogService } from '@shared/confirmation-dialog/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,8 @@ import { AuthService } from '@auth/services/auth.service';
 export class HomeComponent implements OnInit {
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    private confirmationDialogService: ConfirmationDialogService,
   ) { }
 
   ngOnInit(): void {
@@ -20,8 +22,12 @@ export class HomeComponent implements OnInit {
     console.log("usuario",this.authService.userValue)
   }
 
-  onLogout() {
-    this.authService.logout();
+  showDialog() {
+    this.confirmationDialogService.confirmThis("¿Esta seguro que desea eliminar este registro ?", function () {
+      alert("Yes clicked");
+    }, function () {
+      alert("No clicked");
+    })
   }
 
 }

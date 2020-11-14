@@ -4,6 +4,7 @@ import { ZonaService } from '@zona/services/zona.service';
 import { Zona } from '@zona/interfaces/zona.interface';
 import { language } from '@shared/datatable/language';
 import { AlertService } from '@shared/alert/services/alert.service';
+import { ConfirmationDialogService } from '@shared/confirmation-dialog/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-zona-list',
@@ -18,7 +19,8 @@ export class ZonaListComponent implements OnInit {
 
   constructor(
     private zonaService: ZonaService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private confirmationDialogService: ConfirmationDialogService,
   ) {
   }
 
@@ -38,6 +40,14 @@ export class ZonaListComponent implements OnInit {
   }
 
   deleteZona(id: string): void {
+    this.confirmationDialogService.confirmThis("¿Esta seguro que desea eliminar este registro ?", () => {
+      this.onDelete(id);
+    }, () => {
+      // console.log("Operación cancelada")
+    })
+  }
+
+  onDelete(id: string) {
     this.zonaService.deleteZona(id)
       .subscribe(() => {
         this.zonas = this.zonas.filter(item => item.id != parseInt(id));

@@ -63,7 +63,7 @@ export class AuthService {
 
   private saveLocalStorage(user: UserResponse) {
     let data = {
-      "token": user.access,
+      "token": user.token,
       "authenticatedUser": {
         "email": user.authenticatedUser.email,
         "role": user.authenticatedUser.role,
