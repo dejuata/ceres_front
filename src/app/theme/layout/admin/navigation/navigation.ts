@@ -122,7 +122,7 @@ const NavigationItems = [
             id: 'labores_create',
             title: 'Crear',
             type: 'item',
-            url: 'labor/new',
+	    url: '/labor/new',
             target: false,
             breadcrumbs: true
           },
