@@ -59,7 +59,7 @@
                   </div>
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-6" *ngIf="isAddMode">
                 <label for="">Contraseña</label>
                 <input type="text" class="form-control" [ngClass]="{'invalid-input': f.password.invalid && (f.password.dirty || f.password.touched)}" formControlName="password" placeholder="Contraseña">
                 <div class="invalid-input-feedback"

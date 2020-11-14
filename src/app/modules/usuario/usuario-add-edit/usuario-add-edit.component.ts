@@ -45,11 +45,13 @@ export class UsuarioAddEditComponent implements OnInit {
   }
 
   formInit(): void {
-    this.usuarioForm = this.formBuilder.group({
+    var validator_password = this.isAddMode ? ['', Validators.required] : ['', ''];
+    this.usuarioForm = this.formBuilder.group(
+      {
       email: ['', Validators.required],
       id_card: ['', Validators.required],
       role: ['', Validators.required],
-      password: ['', Validators.required],
+      password: validator_password,
       phone: [],
       birthdate: [],
     });
