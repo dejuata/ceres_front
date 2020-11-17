@@ -4,6 +4,34 @@
         <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
           <div class="row">
             <div class="form-group col-md-6">
+              <label for="">Nombre</label>
+              <input type="text" class="form-control"
+                [ngClass]="{'invalid-input': isValidField('first_name')}"
+                formControlName="first_name" placeholder="Nombre">
+              <div class="invalid-input-feedback"
+                *ngIf="isValidField('first_name')">
+                El Nombre de usuario es requerido
+              </div>
+              <div class="invalid-input-feedback" *ngIf="f.first_name.errors?.serverError">
+                {{ f.first_name.errors?.serverError }}
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="">Apellido</label>
+              <input type="text" class="form-control"
+                [ngClass]="{'invalid-input': isValidField('last_name')}"
+                formControlName="last_name" placeholder="Apellido">
+              <div class="invalid-input-feedback"
+                *ngIf="isValidField('last_name')">
+                El Apellido de usuario es requerido
+              </div>
+              <div class="invalid-input-feedback" *ngIf="f.last_name.errors?.serverError">
+                {{ f.last_name.errors?.serverError }}
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
               <label for="">Email</label>
               <input type="text" class="form-control"
                 [ngClass]="{'invalid-input': f.email.invalid && (f.email.dirty || f.email.touched)}"
@@ -16,7 +44,7 @@
                 {{ f.email.errors?.serverError }}
               </div>
             </div>
-  
+
             <div class="form-group col-md-6">
               <label for="">Cédula</label>
               <input type="text" class="form-control" [ngClass]="{'invalid-input': f.id_card.invalid && (f.id_card.dirty || f.id_card.touched)}" formControlName="id_card" placeholder="Cédula">
@@ -33,7 +61,7 @@
                 <label for="">Rol</label>
                 <select class="form-control" name="role" formControlName="role">
                     <option [value]="item[0]" *ngFor="let item of lista_rol">{{item[1]}}</option>
-                    </select>
+                </select>
                 <div class="invalid-input-feedback"
                   *ngIf="f.role.errors?.required && (f.role.dirty || f.role.touched)">
                   El rol de usuario es requerido
@@ -70,17 +98,19 @@
                   {{ f.password.errors?.serverError }}
                 </div>
               </div>
-  
-            <div class="form-group col-md-12 mt-3">
-              <button [disabled]="!usuarioForm.valid" type="submit" class="btn btn-primary col-md-12">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Guardar
-              </button>
-            </div>
+
+              <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">
+                <button [disabled]="!usuarioForm.valid" type="submit" class="btn btn-primary col-md-2">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                  Guardar
+                </button>
+                <button type="button" class="btn btn-danger col-md-2 ml-3" (click)="cancel()">
+                  Cancelar
+                </button>
+              </div>
           </div>
         </form>
       </app-card>
     </div>
   </div>
-  
-  
+

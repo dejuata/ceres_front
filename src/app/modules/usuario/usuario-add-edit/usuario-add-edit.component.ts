@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Location } from '@angular/common'
 
 import { UsuarioService } from '@usuario/services/usuario.service';
 import { Usuario } from '@usuario/interfaces/usuario.interface';
@@ -19,11 +20,11 @@ export class UsuarioAddEditComponent implements OnInit {
   loading = false;
   title: string;
 
-  lista_rol=[
-    ["1", "Admin"],
-    ["2", "Manager"],
-    ["3", "Field manager"],
-    ["4", "Operator"]
+  lista_rol = [
+    ["1", "Administrador"],
+    ["2", "Empleado"],
+    ["3", "Jefe de Campo"],
+    ["4", "Operario"]
   ];
 
   constructor(
@@ -31,7 +32,8 @@ export class UsuarioAddEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private usuarioService: UsuarioService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -45,16 +47,18 @@ export class UsuarioAddEditComponent implements OnInit {
   }
 
   formInit(): void {
-    var validator_password = this.isAddMode ? ['', Validators.required] : ['', ''];
+    let validator_password = this.isAddMode ? ['', Validators.required] : ['', ''];
     this.usuarioForm = this.formBuilder.group(
       {
-      email: ['', Validators.required],
-      id_card: ['', Validators.required],
-      role: ['', Validators.required],
-      password: validator_password,
-      phone: [],
-      birthdate: [],
-    });
+        first_name : ['', Validators.required],
+        last_name: ['', Validators.required],
+        email: ['', Validators.required],
+        id_card: ['', Validators.required],
+        role: ['', Validators.required],
+        password: validator_password,
+        phone: [],
+        birthdate: [],
+      });
   }
 
   get f() {
@@ -66,14 +70,18 @@ export class UsuarioAddEditComponent implements OnInit {
     if (this.isAddMode) {
       this.createUsuario();
     } else {
-        this.updateUsuario();
+      this.updateUsuario();
     }
+  }
+
+  cancel(): void {
+    this.location.back();
   }
 
   getUsuario(): void {
     if (!this.isAddMode) {
       this.usuarioService.getUsuarioById(this.id)
-      .subscribe(data => this.usuarioForm.patchValue(data));
+        .subscribe(data => this.usuarioForm.patchValue(data));
     }
   }
 
@@ -86,21 +94,8 @@ export class UsuarioAddEditComponent implements OnInit {
           this.usuarioForm.reset();
         },
         error: error => {
-          if (error instanceof HttpErrorResponse){
-            const validationErrors = error.error;
-            if (error.status === 400) {
-              Object.keys(validationErrors).forEach(prop => {
-                const formControl = this.usuarioForm.get(prop);
-                if (formControl) {
-                  // activate the error message
-                  formControl.setErrors({
-                    serverError: validationErrors[prop]
-                  });
-                }
-                this.alertService.error("El Usuario no ha sido creado");
-              });
-            }
-          }
+          this.handlerError(error);
+          this.alertService.error("La Zona de Campo no ha sido creada");
           this.loading = false;
         }
       })
@@ -118,6 +113,30 @@ export class UsuarioAddEditComponent implements OnInit {
           this.loading = false;
         }
       })
+  }
+
+  handlerError(error) {
+    if (error instanceof HttpErrorResponse){
+      const validationErrors = error.error;
+      if (error.status === 400) {
+        Object.keys(validationErrors).forEach(prop => {
+          const formControl = this.usuarioForm.get(prop);
+          if (formControl) {
+            formControl.setErrors({
+              serverError: validationErrors[prop]
+            });
+          }
+        });
+      }
+    }
+  }
+
+  isValidField(field: string) {
+    let touched = this.usuarioForm.get(field).touched;
+    let dirty = this.usuarioForm.get(field).dirty;
+    let invalid = !this.usuarioForm.get(field).valid;
+
+    return (touched || dirty) && invalid;
   }
 
 }

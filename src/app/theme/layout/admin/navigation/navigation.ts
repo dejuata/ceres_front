@@ -42,7 +42,7 @@ const NavigationItems = [
             id: 'usuario_create',
             title: 'Crear',
             type: 'item',
-            url: '/usuario/new',
+            url: 'usuario/new',
             target: false,
             breadcrumbs: true
           },
@@ -50,7 +50,7 @@ const NavigationItems = [
             id: 'usuario_search',
             title: 'Consultar',
             type: 'item',
-            url: '/usuario/',
+            url: 'usuario/',
             target: false,
             breadcrumbs: true
           }

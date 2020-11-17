@@ -1,38 +1,41 @@
-<p>Componente de busqueda</p>
 <div class="col-md-12">
   <app-card cardTitle="Usuarios" [options]="false" cardClass="table-card">
     <div class="table-responsive table-padding">
-      <table datatable [dtOptions]="dtOptions" class="table table-hover">
-        <thead>
-        <tr>
-          <th>Id</th>
-          <th>Email</th>
-          <th>Cédula</th>
-          <th>Rol</th>
-          <th>Opciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of usuarios">
-          <td>
-            <a routerLink="detail/{{item.id}}">
-              {{ item.id }}
-            </a>
-          </td>
-          <td>{{ item.email }}</td>
-          <td>{{ item.id_card }}</td>
-          <td>{{ item.role }}</td>
-          <td>
-            <button type="button" class="btn btn-icon btn-info" routerLink="edit/{{item.id}}">
-              <i class="feather icon-edit-2"></i>
-            </button>
-            <button type="button" (click)="deleteUsuario(item.id)" class="btn btn-icon btn-danger left-margin">
-              <i class="feather icon-trash-2"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <div *ngIf="loading">
+        <table datatable [dtOptions]="dtOptions" class="table table-hover">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Cédula</th>
+            <th>Rol</th>
+            <th>Opciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of usuarios">
+            <td>
+              <a routerLink="detail/{{item.id}}">
+                {{ item.id }}
+              </a>
+            </td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.id_card }}</td>
+            <td>{{ rol[item.role] }}</td>
+            <td>
+              <button type="button" class="btn btn-icon btn-info" routerLink="edit/{{item.id}}">
+                <i class="feather icon-edit-2"></i>
+              </button>
+              <button type="button" (click)="deleteUsuario(item.id)" class="btn btn-icon btn-danger left-margin">
+                <i class="feather icon-trash-2"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </app-card>
 </div>
+
+<app-confirmation-dialog></app-confirmation-dialog>

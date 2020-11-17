@@ -143,6 +143,13 @@ export class BreadcrumbComponent implements OnInit {
   ​​        url: '/labor/',
         })
       }
+      if(elem === "usuario") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Usuario",
+  ​​        url: '/usuario/',
+        })
+      }
       if(elem === "new") {
         result.push({
           breadcrumbs: true,

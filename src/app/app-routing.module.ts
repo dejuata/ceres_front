@@ -42,7 +42,7 @@ const routes: Routes = [
       },
       {
         path: 'usuario',
-        loadChildren: () => import('./modules/usuario/usuario.module').then(module => module.UsuarioModule)
+        loadChildren: () => import('@usuario/usuario.module').then(module => module.UsuarioModule)
       },
       {
         path: 'labor',
