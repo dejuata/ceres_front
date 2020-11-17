@@ -42,7 +42,7 @@ const NavigationItems = [
             id: 'usuario_create',
             title: 'Crear',
             type: 'item',
-            url: '/usuario/new',
+            url: 'usuario/new',
             target: false,
             breadcrumbs: true
           },
@@ -50,7 +50,7 @@ const NavigationItems = [
             id: 'usuario_search',
             title: 'Consultar',
             type: 'item',
-            url: '/usuario/',
+            url: 'usuario',
             target: false,
             breadcrumbs: true
           }
@@ -106,7 +106,7 @@ const NavigationItems = [
             id: 'zona_search',
             title: 'Consultar',
             type: 'item',
-            url: 'zona/',
+            url: 'zona',
             target: false,
             breadcrumbs: true
           }
@@ -122,7 +122,7 @@ const NavigationItems = [
             id: 'labores_create',
             title: 'Crear',
             type: 'item',
-	    url: '/labor/new',
+	    url: 'labor/new',
             target: false,
             breadcrumbs: true
           },
@@ -130,7 +130,7 @@ const NavigationItems = [
             id: 'labores_search',
             title: 'Consultar',
             type: 'item',
-            url: '/labor/',
+            url: 'labor',
             target: false,
             breadcrumbs: true
           }
@@ -150,6 +150,14 @@ const NavigationItems = [
         type: 'collapse',
         icon: 'feather icon-book',
         children: [
+          {
+            id: 'bitacora_create',
+            title: 'Crear',
+            type: 'item',
+	          url: 'bitacora',
+            target: false,
+            breadcrumbs: true
+          },
         ]
       },
     ]

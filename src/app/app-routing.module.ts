@@ -48,6 +48,10 @@ const routes: Routes = [
         path: 'labor',
         loadChildren: () => import('@labor/labor.module').then(module => module.LaborModule)
       },
+      {
+        path: 'bitacora',
+        loadChildren: () => import('./modules/bitacora/bitacora.module').then(module => module.BitacoraModule)
+      },
     ]
   }
 ];
