@@ -1,23 +1,19 @@
 <app-card cardTitle="Detalle Labor" [options]="false">
   <div class="row">
     <div class="form-group col-md-6">
-      <label for=""><strong>Código Labor</strong></label>
-      <p>{{ labor?.id }}</p>
-    </div>
-
-    <div class="form-group col-md-6">
       <label for=""><strong>Nombre</strong></label>
       <p>{{ labor?.name }}</p>
-    </div>
-
-    <div class="form-group col-md-6">
-      <label for=""><strong>Descripción</strong></label>
-      <p>{{ labor?.description }}</p>
     </div>
 
     <div class="form-group col-md-6">
       <label for=""><strong>Tipo</strong></label>
       <p>{{ labor?.labor_type }}</p>
     </div>
+
+    <div class="form-group col-md-12">
+      <label for=""><strong>Descripción</strong></label>
+      <p>{{ labor?.description }}</p>
+    </div>
   </div>
 </app-card>
+

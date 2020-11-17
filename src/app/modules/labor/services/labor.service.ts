@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { Labor } from '@labor/interfaces/labor.interface';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class LaborService {
 
-  endpoint = `${environment.baseUrl}/labors/`
+  endpoint = `${environment.baseUrl}/labors/`;
 
   constructor(private http: HttpClient) { }
 

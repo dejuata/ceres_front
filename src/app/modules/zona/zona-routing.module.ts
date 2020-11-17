@@ -22,7 +22,6 @@ const routes: Routes = [
     path: 'detail/:id',
     component: ZonaDetailsComponent
   },
-
 ];
 
 @NgModule({

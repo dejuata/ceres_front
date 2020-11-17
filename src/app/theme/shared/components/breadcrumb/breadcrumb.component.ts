@@ -136,6 +136,13 @@ export class BreadcrumbComponent implements OnInit {
   ​​        url: '/zona/',
         })
       }
+      if(elem === "labor") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Labores de campo",
+  ​​        url: '/labor/',
+        })
+      }
       if(elem === "new") {
         result.push({
           breadcrumbs: true,
