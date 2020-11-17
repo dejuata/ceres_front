@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="{{title}}" [options]="false">
+        <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="">Email</label>
+              <input type="text" class="form-control"
+                [ngClass]="{'invalid-input': f.email.invalid && (f.email.dirty || f.email.touched)}"
+                formControlName="email" placeholder="Email">
+              <div class="invalid-input-feedback"
+                *ngIf="f.email.errors?.required && (f.email.dirty || f.email.touched)">
+                El Email de usuario es requerido
+              </div>
+              <div class="invalid-input-feedback" *ngIf="f.email.errors?.serverError">
+                {{ f.email.errors?.serverError }}
+              </div>
+            </div>
+  
+            <div class="form-group col-md-6">
+              <label for="">Cédula</label>
+              <input type="text" class="form-control" [ngClass]="{'invalid-input': f.id_card.invalid && (f.id_card.dirty || f.id_card.touched)}" formControlName="id_card" placeholder="Cédula">
+              <div class="invalid-input-feedback"
+                *ngIf="f.id_card.errors?.required && (f.id_card.dirty || f.id_card.touched)">
+                La Cédula del usuario es requerida
+              </div>
+              <div class="invalid-input-feedback" *ngIf="f.id_card.errors?.serverError">
+                {{ f.id_card.errors?.serverError }}
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="">Rol</label>
+                <select class="form-control" name="role" formControlName="role">
+                    <option [value]="item[0]" *ngFor="let item of lista_rol">{{item[1]}}</option>
+                    </select>
+                <div class="invalid-input-feedback"
+                  *ngIf="f.role.errors?.required && (f.role.dirty || f.role.touched)">
+                  El rol de usuario es requerido
+                </div>
+                <div class="invalid-input-feedback" *ngIf="f.role.errors?.serverError">
+                  {{ f.role.errors?.serverError }}
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Teléfono</label>
+                <input type="number" class="form-control" formControlName="phone" placeholder="Teléfono">
+                <div class="invalid-input-feedback" *ngIf="f.phone.errors?.serverError">
+                    {{ f.phone.errors?.serverError }}
+                  </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Fecha de nacimiento</label>
+                <input type="date" class="form-control" formControlName="birthdate">
+                <div class="invalid-input-feedback" *ngIf="f.birthdate.errors?.serverError">
+                    {{ f.birthdate.errors?.serverError }}
+                  </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="">Contraseña</label>
+                <input type="password" class="form-control" [ngClass]="{'invalid-input': f.password.invalid && (f.password.dirty || f.password.touched)}" formControlName="password" placeholder="Contraseña">
+                <div class="invalid-input-feedback"
+                  *ngIf="f.password.errors?.required && (f.password.dirty || f.password.touched)">
+                  La contraseña de usuario es requerida
+                </div>
+                <div class="invalid-input-feedback" *ngIf="f.password.errors?.serverError">
+                  {{ f.password.errors?.serverError }}
+                </div>
+              </div>
+  
+            <div class="form-group col-md-12 mt-3">
+              <button [disabled]="!usuarioForm.valid" type="submit" class="btn btn-primary col-md-12">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Guardar
+              </button>
+            </div>
+          </div>
+        </form>
+      </app-card>
+    </div>
+  </div>
+  
+  

@@ -1,0 +1,34 @@
+<app-card cardTitle="Detalle Usuario" [options]="false">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for=""><strong>Id</strong></label>
+        <p>{{ usuario?.id }}</p>
+      </div>
+  
+      <div class="form-group col-md-6">
+        <label for=""><strong>Email</strong></label>
+        <p>{{ usuario?.email }}</p>
+      </div>
+  
+      <div class="form-group col-md-6">
+        <label for=""><strong>Cédula</strong></label>
+        <p>{{ usuario?.id_card }}</p>
+      </div>
+  
+      <div class="form-group col-md-6">
+        <label for=""><strong>Rol</strong></label>
+        <p>{{ getDescriptionRole(usuario?.role) }}</p>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for=""><strong>Teléfono</strong></label>
+        <p>{{ usuario?.phone }}</p>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for=""><strong>Fecha de nacimiento</strong></label>
+        <p>{{ usuario?.birthdate }}</p>
+      </div>
+    </div>
+  </app-card>
+  
