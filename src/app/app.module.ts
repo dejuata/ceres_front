@@ -34,6 +34,8 @@ import { LaborModule } from '@labor/labor.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
 import { UsuarioModule } from '@usuario/usuario.module';
 import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,7 @@ import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
     ShModule,
     UsuarioModule,
     LaborModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     NavigationItem,
