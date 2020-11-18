@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Programación" [options]="false">
+
+      <!--
+      <div class="hot">
+        <hot-table [hotId]="id" [settings]="hotSettings">
+          <hot-column data="schedule_date" type='date' title="Fecha"></hot-column>
+          <hot-column data="start_hour" type='time' title="Hora Inicio"></hot-column>
+          <hot-column data="final_hour" type='time' title="Hora Fin"></hot-column>
+          <hot-column data="zone"  type='key-value' [source]="source" title="Zona de Campo"></hot-column>
+          <hot-column data="labor" type='dropdown' [source]="labores" title="Labor de Campo"></hot-column>
+          <hot-column data="operator" type='dropdown' [source]="operarios" title="Operario"></hot-column>
+          <hot-column data="observation" title="Observación"></hot-column>
+        </hot-table>
+      </div>
+      -->
+
+      <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">
+        <button  type="submit" class="btn btn-primary col-md-2" (click)="onSaveData()">
+          <!--<span class="spinner-border spinner-border-sm mr-1"></span>-->
+          Guardar
+        </button>
+        <button type="button" class="btn btn-danger col-md-2 ml-3" (click)="cancel()">
+          Cancelar
+        </button>
+      </div>
+    </app-card>
+    <div>
+    </div>

@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './theme/shared/shared.module';
 
-
 import { AppComponent } from './app.component';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
@@ -33,9 +32,11 @@ import { ZonaModule } from '@zona/zona.module';
 import { LaborModule } from '@labor/labor.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
 import { UsuarioModule } from '@usuario/usuario.module';
+import { ScheduleModule } from '@schedule/schedule.module';
+
 import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { environment } from '@environments/environment';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { environment } from '../environments/environment';
     ShModule,
     UsuarioModule,
     LaborModule,
+    ScheduleModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [

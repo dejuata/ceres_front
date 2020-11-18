@@ -86,6 +86,14 @@ const NavigationItems = [
         type: 'collapse',
         icon: 'feather icon-calendar',
         children: [
+          {
+            id: 'schedule_create',
+            title: 'Crear',
+            type: 'item',
+            url: 'schedule/new',
+            target: false,
+            breadcrumbs: true
+          }
         ]
       },
       {

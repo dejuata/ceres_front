@@ -3,6 +3,7 @@
 /* SCSS */
 @import "scss/style";
 @import '~animate.css/animate.min.css';
+@import '~handsontable/dist/handsontable.full.css';
 
 // Estilos propios - generales
 #main-logo {
@@ -27,4 +28,8 @@
 
 .table-padding{
   padding: 1em 2em 0em 2em;
+}
+
+#hot-display-license-info {
+  display: none !important;
 }

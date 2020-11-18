@@ -48,6 +48,10 @@ const routes: Routes = [
         path: 'labor',
         loadChildren: () => import('@labor/labor.module').then(module => module.LaborModule)
       },
+      {
+        path: 'schedule',
+        loadChildren: () => import('@schedule/schedule.module').then(module => module.ScheduleModule)
+      },
     ]
   }
 ];
