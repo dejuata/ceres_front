@@ -42,6 +42,10 @@ export class AuthService {
       );
   }
 
+  register(authData: User) : Observable<any> {
+    return this.http.post<any>(`${environment.baseUrl}/auth/register`, authData)
+  }
+
   logout() {
     localStorage.removeItem('user');
     this.user.next(null);

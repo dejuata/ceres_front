@@ -1,1 +1,64 @@
-<p>auth-signup works!</p>
+<div class="auth-wrapper">
+  <app-alert></app-alert>
+  <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+      <img src="assets/images/auth/auth-logo.png" alt="" class="img-fluid mb-4">
+      <p>
+        <a href="" class="btn btn-block btn-gmail">
+          <i class="fab fa-google"></i> Login via Gmail
+        </a>
+      </p>
+      <p class="divider-text">
+        <span class="bg-light">O</span>
+      </p>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+          </div>
+          <input name="" class="form-control" [ngClass]="{'invalid-input': isValidField('email')}" formControlName="email" placeholder="Correo Electrónico" type="email">
+          <label class="invalid-input-feedback text-left" *ngIf="isValidField('email') && !f.email.errors?.serverError">
+            {{ getErrorMessage('email')}}
+          </label>
+        </div>
+
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+          </div>
+          <select class="form-control">
+            <option selected="">Seleccione su Rol</option>
+            <option>Empleado</option>
+            <option>Jefe de Campo</option>
+            <option>Operador</option>
+          </select>
+        </div>
+
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          </div>
+          <input class="form-control" formControlName="password" [ngClass]="{'invalid-input': isValidField('password')}" placeholder="Crear Contraseña" type="password">
+          <label class="invalid-input-feedback text-left" *ngIf="isValidField('password') && !f.email.errors?.serverError">
+            {{ getErrorMessage('password')}}
+          </label>
+        </div>
+
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          </div>
+          <input formControlName="confirmPassword" [ngClass]="{'invalid-input': isValidField('confirmPassword')}" class="form-control" placeholder="Repetir Contraseña" type="password">
+          <label class="invalid-input-feedback text-left" *ngIf="isValidField('confirmPassword')">
+            {{ getErrorMessage('confirmPassword')}}
+          </label>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
+        </div>
+        <p class="text-center">Tienes una cuenta? <a href="">Ingresa</a> </p>
+      </form>
+    </article>
+  </div>
+</div>

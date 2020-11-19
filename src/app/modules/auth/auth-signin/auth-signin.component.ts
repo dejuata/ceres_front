@@ -21,7 +21,6 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -73,7 +72,6 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
 
   getErrorMessage(field: string): string {
     let message = '';
-
     if (this.loginForm.get(field).errors.required) {
       message = 'El Campo es requerido.';
     } else if (this.loginForm.get(field).hasError('pattern')) {
@@ -81,7 +79,6 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     } else if (this.loginForm.get(field).hasError('minlength')) {
       message = 'La Contraseña debe tener al menos 8 caracteres.';
     }
-
     return message;
   }
 

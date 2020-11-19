@@ -1,0 +1,11 @@
+.auth-wrapper .card {
+  padding: 0 !important;
+}
+
+.auth-wrapper .auth-content:not(.container) {
+  width: 425px;
+}
+
+.auth-wrapper .auth-content:not(.container) .card-body {
+  padding: 45px 40px;
+}
