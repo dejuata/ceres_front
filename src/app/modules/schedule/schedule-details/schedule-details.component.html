@@ -1,0 +1,40 @@
+<app-card cardTitle="Detalle Actividad" [options]="false">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for=""><strong>Fecha</strong></label>
+      <p>{{ schedule?.schedule_date }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Hora Inicial</strong></label>
+      <p>{{ schedule?.start_hour }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Hora Final</strong></label>
+      <p>{{ schedule?.final_hour }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Labor</strong></label>
+      <p>{{ schedule?.nombre_labor }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Zona</strong></label>
+      <p>{{ schedule?.codigo_zona }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for=""><strong>Operario</strong></label>
+      <p>{{ schedule?.name_operator }}</p>
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for=""><strong>Observación</strong></label>
+      <p>{{ schedule?.observation }}</p>
+    </div>
+  </div>
+</app-card>
+
+

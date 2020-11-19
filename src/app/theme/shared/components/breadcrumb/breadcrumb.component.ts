@@ -157,6 +157,13 @@ export class BreadcrumbComponent implements OnInit {
   ​​        url: '/schedule/',
         })
       }
+      if(elem === "calendar") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Calendario",
+  ​​        url: false,
+        })
+      }
       if(elem === "new") {
         result.push({
           breadcrumbs: true,

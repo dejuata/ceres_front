@@ -1,13 +1,14 @@
-import { ScheduleService } from './../services/schedule.service';
 import { Component, OnInit } from '@angular/core';
-import Handsontable from 'handsontable';
-import { HotTableRegisterer } from '@handsontable/angular';
 import { ZonaService } from '@zona/services/zona.service';
 import { LaborService } from '@labor/services/labor.service';
 import { UsuarioService } from '@usuario/services/usuario.service';
+import { ScheduleService } from '@schedule/services/schedule.service';
 import { Location } from '@angular/common';
 
-import 'handsontable-key-value';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from '@shared/alert/services/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -17,86 +18,134 @@ import 'handsontable-key-value';
 })
 export class ScheduleAddEditComponent implements OnInit {
 
-  private hotRegisterer = new HotTableRegisterer();
-  id = 'hotInstance';
-  hotSettings: Handsontable.GridSettings = {
-    startRows: 12,
-    startCols: 7,
-    colHeaders: true,
-    rowHeaders: true,
-    colWidths: [110, 100, 100, 120, 180, 160, 200],
-    rowHeights: 30,
-    manualColumnResize: true,
-    manualRowResize: true,
-    width: '100%',
-    // data: Handsontable.helper.createSpreadsheetData(4, 4),
-  }
-
-  source: [
-    {
-      id: 1,
-      name: 'Ready',
-    },
-    {
-      id: 2,
-      name: 'Cancelled',
-    },
-    {
-      id: 3,
-      name: 'Done',
-    },
-  ]
+  scheduleForm: FormGroup;
+  id: string;
+  isAddMode: boolean;
+  loading = false;
+  title: string;
 
   zonas: any[] = [];
   labores: any[] = [];
   operarios: any[] = [];
 
   constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
     private zonaService: ZonaService,
     private laborService: LaborService,
     private userService: UsuarioService,
     private scheduleService: ScheduleService,
+    private alertService: AlertService,
     private location: Location
   ) {
   }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    this.isAddMode = !this.id;
+    this.formInit();
+    this.title = this.isAddMode ? "Crear Actividad" : "Editar Actividad";
+    if (!this.isAddMode) {
+      this.getActivities();
+    }
+
     this.getZonas();
     this.getLabores();
     this.getUsuarios();
   }
 
-  swapHotData() {
-    this.hotRegisterer.getInstance(this.id).loadData([['new', 'data']]);
+  formInit(): void {
+    this.scheduleForm = this.formBuilder.group({
+      schedule_date: ['', Validators.required],
+      start_hour: [null, Validators.required],
+      final_hour: [null, Validators.required],
+      zone: ['', Validators.required],
+      labor: ['', Validators.required],
+      operator: ['', Validators.required],
+      observation: ['',],
+      name_operator: ['',],
+      codigo_zona: ['',],
+      nombre_labor: ['',]
+    })
   }
 
-  onSaveData() {
-    let data = this.cleanedGridData(this.hotRegisterer.getInstance(this.id).getData());
-    console.log(data)
+  get f() {
+    return this.scheduleForm.controls;
   }
 
-  cleanedGridData(data) {
-    let result = []
-    data.forEach( row => {
-      if (row[0] != null) {
-        result.push({
-          "schedule_date": row[0],
-          "start_hour": row[1],
-          "final_hour": row[2],
-          "zone": row[3],
-          "labor": row[4],
-          "operator": row[5],
-          "observation": row[6],
-        })
-      }
-    });
-    return result
+  onSubmit(): void {
+    this.loading = true;
+    this.setValueForm();
+    if (this.isAddMode) {
+      this.createSchedule();
+    } else {
+      this.updateSchedule();
+    }
+  }
+
+  cancel() {
+    this.location.back();
+  }
+
+  getActivities(): void {
+    if (!this.isAddMode) {
+      this.scheduleService.getActivitieById(this.id)
+        .subscribe(data => this.scheduleForm.patchValue(data));
+    }
+  }
+
+  setValueForm() {
+    let zona = this.scheduleForm.get('zone').value
+    let zona_result = this.zonas.filter(item => item[0] == zona)
+    this.scheduleForm.get('codigo_zona').setValue(zona_result[0][1])
+
+    let labor = this.scheduleForm.get('labor').value
+    let labor_result = this.labores.filter(item => item[0] == labor)
+    this.scheduleForm.get('nombre_labor').setValue(labor_result[0][1])
+
+    let operator = this.scheduleForm.get('operator').value
+    let operator_result = this.operarios.filter(item => item[0] == operator)
+    this.scheduleForm.get('name_operator').setValue(operator_result[0][1])
+  }
+
+  createSchedule(): void {
+    this.scheduleService.createActivitie(this.scheduleForm.value)
+      .subscribe({
+        next: () => {
+          this.alertService.success('La Actividad ha sido creada', { keepAfterRouteChange: true });
+          this.loading = false;
+          this.scheduleForm.reset();
+        },
+        error: error => {
+          this.handlerError(error);
+          this.alertService.error("La Actividad no ha sido creada");
+          this.loading = false;
+        }
+      })
+
+  }
+
+  updateSchedule(): void {
+    this.scheduleService.updateActivitie(this.id, this.scheduleForm.value)
+      .subscribe({
+        next: () => {
+          this.alertService.success('La Actividad ha sido actualizada', { keepAfterRouteChange: true });
+          this.router.navigate(['../../'], { relativeTo: this.route });
+        },
+        error: error => {
+          this.alertService.error('La Actividad no ha sido actualizada');
+          this.loading = false;
+        }
+      })
   }
 
   getZonas(): void {
     this.zonaService.getZonas()
       .subscribe(data => {
-        this.zonas = data.map((elem) => elem.id_zone);
+        data.forEach((elem) => {
+          this.zonas.push([elem.id, elem.id_zone])
+        });
       }, err => {
         console.log(err)
       })
@@ -105,7 +154,9 @@ export class ScheduleAddEditComponent implements OnInit {
   getLabores(): void {
     this.laborService.getLabors()
       .subscribe(data => {
-        this.labores = data.map((elem) => elem.name);
+        data.forEach((elem) => {
+          this.labores.push([elem.id, elem.name])
+        })
       }, err => {
         console.log(err)
       })
@@ -114,15 +165,46 @@ export class ScheduleAddEditComponent implements OnInit {
   getUsuarios(): void {
     this.userService.getUsuarios()
       .subscribe(data => {
-        this.operarios = data.filter(elem => elem.role == '4')
-          .map(elem => `${elem.first_name} ${elem.last_name}`)
+        data.forEach((elem) => {
+          if (elem.role == '4') {
+            this.operarios.push([elem.id, `${elem.first_name} ${elem.last_name}`])
+          }
+        })
       }, err => {
         console.log(err)
       })
   }
 
-  cancel() {
-    this.location.back();
+  getErrorMessage(field: string): string {
+    let message = '';
+    if (this.scheduleForm.get(field).errors.required) {
+      message = 'El Campo es requerido.';
+    }
+    return message;
+  }
+
+  isValidField(field: string) {
+    let touched = this.scheduleForm.get(field).touched;
+    let dirty = this.scheduleForm.get(field).dirty;
+    let invalid = !this.scheduleForm.get(field).valid;
+
+    return (touched || dirty) && invalid;
+  }
+
+  handlerError(error) {
+    if (error instanceof HttpErrorResponse) {
+      const validationErrors = error.error;
+      if (error.status === 400) {
+        Object.keys(validationErrors).forEach(prop => {
+          const formControl = this.scheduleForm.get(prop);
+          if (formControl) {
+            formControl.setErrors({
+              serverError: validationErrors[prop]
+            });
+          }
+        });
+      }
+    }
   }
 
 }

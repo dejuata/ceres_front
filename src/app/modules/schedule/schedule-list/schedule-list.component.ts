@@ -1,43 +1,43 @@
-import { AlertService } from './../../shared/alert/services/alert.service';
 import { Component, OnInit } from '@angular/core';
-import { Labor } from '@labor/interfaces/labor.interface';
-import { LaborService } from '@labor/services/labor.service';
+import { Schedule } from '@schedule/interfaces/schedule.interface';
+import { ScheduleService } from '@schedule/services/schedule.service';
+import { AlertService } from '@shared/alert/services/alert.service';
 import { ConfirmationDialogService } from '@shared/confirmation-dialog/services/confirmation-dialog.service';
 import { language } from '@shared/datatable/language';
 
 @Component({
-  selector: 'app-labor-list',
-  templateUrl: './labor-list.component.html',
-  styleUrls: ['./labor-list.component.scss']
+  selector: 'app-schedule-list',
+  templateUrl: './schedule-list.component.html',
+  styleUrls: ['./schedule-list.component.scss']
 })
-export class LaborListComponent implements OnInit {
+export class ScheduleListComponent implements OnInit {
 
-  labors: Labor[] = [];
+  activities: Schedule[] = [];
   dtOptions: DataTables.Settings = {};
   loading: boolean = false;
 
   constructor(
-    private laborService: LaborService,
+    private scheduleService: ScheduleService,
     private alertService: AlertService,
     private confirmationDialogService: ConfirmationDialogService,
   ) { }
 
   ngOnInit(): void {
     this.dataTableOptions();
-    this.getLabors();
+    this.getActivities();
   }
 
-  getLabors(): void {
-    this.laborService.getLabors()
+  getActivities(): void {
+    this.scheduleService.getActivities()
       .subscribe(data => {
-          this.labors = data;
+          this.activities = data;
           this.loading = true;
         }, err => {
           console.log(err)
       })
   }
 
-  deleteLabor(id: string): void {
+  deleteActivitie(id: string): void {
     this.confirmationDialogService.confirmThis("¿Esta seguro que desea eliminar este registro ?", () => {
       this.onDelete(id);
     }, () => {
@@ -46,10 +46,10 @@ export class LaborListComponent implements OnInit {
   }
 
   onDelete(id: string) {
-    this.laborService.deleteLabor(id)
+    this.scheduleService.deleteActivitie(id)
       .subscribe(() => {
-        this.labors = this.labors.filter(item => item.id != parseInt(id));
-        this.alertService.success('La Labor de Campo ha sido eliminada', { keepAfterRouteChange: true });
+        this.activities = this.activities.filter(item => item.id != parseInt(id));
+        this.alertService.success('La Actividad ha sido eliminada', { keepAfterRouteChange: true });
       })
   }
 

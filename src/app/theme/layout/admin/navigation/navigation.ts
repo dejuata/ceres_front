@@ -93,6 +93,22 @@ const NavigationItems = [
             url: 'schedule/new',
             target: false,
             breadcrumbs: true
+          },
+          {
+            id: 'schedule_search',
+            title: 'Consultar',
+            type: 'item',
+            url: 'schedule/',
+            target: false,
+            breadcrumbs: true
+          },
+          {
+            id: 'calendar',
+            title: 'Calendario',
+            type: 'item',
+            url: 'schedule/calendar',
+            target: false,
+            breadcrumbs: true
           }
         ]
       },
