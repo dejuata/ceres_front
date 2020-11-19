@@ -158,6 +158,14 @@ const NavigationItems = [
             target: false,
             breadcrumbs: true
           },
+          {
+            id: 'bitacora_search',
+            title: 'Consultar',
+            type: 'item',
+            url: 'bitacora',
+            target: false,
+            breadcrumbs: true
+          }
         ]
       },
     ]

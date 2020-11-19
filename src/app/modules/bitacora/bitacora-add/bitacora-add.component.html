@@ -1,4 +1,5 @@
-<h1>File upload test</h1>
+<!--
+  <h1>File upload test</h1>
 <div>
   <div *ngIf="response && imageURL">
     <img [src]='imageURL' />
@@ -10,4 +11,60 @@
     <button type="submit">Upload File</button>
 
   </form>
+</div>
+-->
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="{{title}}" [options]="false">
+      <form [formGroup]="bitacoraForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="">Email</label>
+            <input type="text" class="form-control"
+              [ngClass]="{'invalid-input': f.emailFile.invalid && (f.emailFile.dirty || f.emailFile.touched)}"
+              formControlName="emailFile" placeholder="Email">
+            <div class="invalid-input-feedback"
+              *ngIf="f.emailFile.errors?.required && (f.emailFile.dirty || f.emailFile.touched)">
+              El Email de usuario es requerido
+            </div>
+            <div class="invalid-input-feedback" *ngIf="f.emailFile.errors?.serverError">
+              {{ f.emailFile.errors?.serverError }}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Nombre Labor</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Labor">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Descripción</label>
+            <input type="text" class="form-control" formControlName="description" placeholder="Descripción">
+          </div>
+          
+          <div class="form-group col-md-12">
+            <label for="">Adjuntar Archivo</label>
+            <input type="file" class="form-control" [ngClass]="{'invalid-input': isValidField('file')}"
+              formControlName="file" placeholder="Archivo">
+            <div class="invalid-input-feedback" *ngIf="isValidField('file')">
+              {{ getErrorMessage('file')}}
+            </div>
+            <div class="invalid-input-feedback" *ngIf="f.file.errors?.serverError">
+              {{ f.file.errors?.serverError }}
+            </div>
+          </div>
+
+          <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">
+            <button [disabled]="!bitacoraForm.valid" type="submit" class="btn btn-primary col-md-2">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Guardar
+            </button>
+            <button type="button" class="btn btn-danger col-md-2 ml-3" (click)="cancel()">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
+    </app-card>
+  </div>
 </div>
