@@ -1,6 +1,6 @@
 export interface Bitacora {
   id: number;
-  emailFile: string;
+  email: string;
   name: string;
   description: string;
   file: any;

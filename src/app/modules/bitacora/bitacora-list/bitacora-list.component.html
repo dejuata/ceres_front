@@ -16,12 +16,12 @@
           <tr *ngFor="let item of bitacoras">
             <td>
               <a routerLink="detail/{{item.id}}">
-                {{ item.emailFile }}
+                {{ item.email }}
               </a>
             </td>
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
-            <td>{{ item.file }}</td>
+            <td><a href="{{ item.file }}" target="_blank">{{ item.file }}</a></td>
             <td>
               <button type="button" class="btn btn-icon btn-info" routerLink="edit/{{item.id}}">
                 <i class="feather icon-edit-2"></i>

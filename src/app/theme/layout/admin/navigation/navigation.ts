@@ -154,7 +154,7 @@ const NavigationItems = [
             id: 'bitacora_create',
             title: 'Crear',
             type: 'item',
-	          url: 'bitacora',
+	          url: 'bitacora/new',
             target: false,
             breadcrumbs: true
           },

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Location } from '@angular/common'
 import { BitacoraService } from './../services/bitacora.service';
 import { AlertService } from '@shared/alert/services/alert.service';
 //import { environment } from '@environments/environment';
@@ -63,7 +62,6 @@ export class BitacoraAddComponent implements OnInit {
     private router: Router,
     private bitacoraService: BitacoraService,
     private alertService: AlertService,
-    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -78,11 +76,10 @@ export class BitacoraAddComponent implements OnInit {
 
   formInit(): void {
     this.bitacoraForm = this.formBuilder.group({
-      id_zone: ['', Validators.required],
-      location: ['', Validators.required],
-      soil_type: ['',],
-      size: ['',],
-      state: ['',],
+      email: ['', Validators.required],
+      name: ['',],
+      description: ['',],
+      file: ['', Validators.required],      
     });
   }
 
@@ -97,10 +94,6 @@ export class BitacoraAddComponent implements OnInit {
     } else {
         this.updateBitacora();
     }
-  }
-
-  cancel(): void {
-    this.location.back();
   }
 
   getBitacora(): void {
