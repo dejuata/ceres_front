@@ -33,6 +33,14 @@ const NavigationItems = [
     icon: 'feather icon-monitor',
     children: [
       {
+        id: 'home',
+        title: 'Home',
+        type: 'item',
+        url: 'home',
+        classes: 'nav-item',
+        icon: 'feather icon-home'
+      },
+      {
         id: 'usuario',
         title: 'Usuarios',
         type: 'collapse',

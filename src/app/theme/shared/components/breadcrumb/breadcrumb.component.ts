@@ -129,32 +129,38 @@ export class BreadcrumbComponent implements OnInit {
 
     let partsRoute = activeLink.split("/")
     partsRoute.forEach(elem => {
+      if(elem === "home") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Home",
+        })
+      }
       if(elem === "zona") {
         result.push({
           breadcrumbs: true,
   ​​        title: "Zonas de campo",
-  ​​        url: '/zona/',
+  ​​        url: './zona',
         })
       }
       if(elem === "labor") {
         result.push({
           breadcrumbs: true,
   ​​        title: "Labores de campo",
-  ​​        url: '/labor/',
+  ​​        url: './labor',
         })
       }
       if(elem === "usuario") {
         result.push({
           breadcrumbs: true,
   ​​        title: "Usuario",
-  ​​        url: '/usuario/',
+  ​​        url: './usuario',
         })
       }
       if(elem === "schedule") {
         result.push({
           breadcrumbs: true,
   ​​        title: "Programación",
-  ​​        url: '/schedule/',
+  ​​        url: './schedule',
         })
       }
       if(elem === "calendar") {

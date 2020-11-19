@@ -1,3 +1,42 @@
-<p>home works!</p>
-<button class="btn btn-primary pull-right" (click)="showDialog()">Show Dialog</button>
-<app-confirmation-dialog></app-confirmation-dialog>
+<div class="row">
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" blockClass="p-0" cardClass="flat-card widget-primary-card">
+      <div class="row-table">
+        <div class="col-sm-3 card-body">
+          <i class="feather icon-calendar"></i>
+        </div>
+        <div class="col-sm-9">
+          <h4>{{ data.actividades }}</h4>
+          <h6>Actividades</h6>
+        </div>
+      </div>
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" blockClass="p-0" cardClass="flat-card widget-purple-card">
+      <div class="row-table">
+        <div class="col-sm-3 card-body">
+          <i class="feather icon-sunset"></i>
+        </div>
+        <div class="col-sm-9">
+          <h4>{{ data.zonas }}</h4>
+          <h6>Zonas de Campo</h6>
+        </div>
+      </div>
+    </app-card>
+  </div>
+
+  <div class="col-md-4">
+    <app-card [hidHeader]="true" blockClass="p-0" cardClass="flat-card widget-primary-card">
+      <div class="row-table">
+        <div class="col-sm-3 card-body">
+          <i class="feather icon-feather"></i>
+        </div>
+        <div class="col-sm-9">
+          <h4>{{ data.labores }}</h4>
+          <h6>Labores de Campo</h6>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>

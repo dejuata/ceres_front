@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AuthService } from '@auth/services/auth.service';
-import { ConfirmationDialogService } from '@shared/confirmation-dialog/services/confirmation-dialog.service';
+import { Component, OnInit } from '@angular/core';
+import { HomeService } from '@home/services/home.service';
 
 @Component({
   selector: 'app-home',
@@ -9,25 +8,21 @@ import { ConfirmationDialogService } from '@shared/confirmation-dialog/services/
 })
 export class HomeComponent implements OnInit {
 
+  data: any = {};
+
   constructor(
-    public authService: AuthService,
-    private confirmationDialogService: ConfirmationDialogService,
+    private homeService: HomeService
   ) { }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
-      console.log("mama", user);
-    })
-
-    console.log("usuario",this.authService.userValue)
+    this.getDataHome();
   }
 
-  showDialog() {
-    this.confirmationDialogService.confirmThis("¿Esta seguro que desea eliminar este registro ?", function () {
-      alert("Yes clicked");
-    }, function () {
-      alert("No clicked");
-    })
+  getDataHome(): void {
+    this.homeService.getDataHome()
+      .subscribe(data => {
+        this.data = data
+        console.log("home", this.data)
+      })
   }
-
 }
