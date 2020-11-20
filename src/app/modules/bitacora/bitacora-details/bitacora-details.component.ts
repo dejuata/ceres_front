@@ -30,5 +30,7 @@ export class BitacoraDetailsComponent implements OnInit {
         this.bitacora = data;
       })
   }
-
+  goToLink(url: string){
+    window.open(url, "_blank");
+  }
 }

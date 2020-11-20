@@ -24,7 +24,7 @@ export class BitacoraService {
   }
 
   createBitacora(bitacora: Bitacora): Observable<Bitacora> {
-    return this.http.post<Bitacora>(this.endpoint, bitacora);
+    return this.http.post<any>(this.endpoint, bitacora);
   }
 
   updateBitacora(id: string, bitacora: Bitacora): Observable<Bitacora> {

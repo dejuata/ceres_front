@@ -61,5 +61,7 @@ export class BitacoraListComponent implements OnInit {
       language: language,
     };
   }
-
+  goToLink(url: string){
+    window.open(url, "_blank");
+  }
 }

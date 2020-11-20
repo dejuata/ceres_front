@@ -76,7 +76,7 @@ export class BitacoraAddComponent implements OnInit {
 
   formInit(): void {
     this.bitacoraForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      emailFile: ['', Validators.required],
       name: ['',],
       description: ['',],
       file: ['', Validators.required],      
