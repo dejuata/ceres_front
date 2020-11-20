@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
 import { MustMatch } from '@auth/helpers/must-match.validator';
+import { AlertService } from '@shared/alert/services/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth-signup',
@@ -13,9 +15,16 @@ export class AuthSignupComponent implements OnInit {
 
   registerForm: FormGroup;
 
+  lista_rol = [
+    ["2", "Empleado"],
+    ["3", "Jefe de Campo"],
+    ["4", "Operario"]
+  ];
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private alertService: AlertService,
     private router: Router,
   ) { }
 
@@ -27,6 +36,7 @@ export class AuthSignupComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"), Validators.required]],
       password: ['', [Validators.minLength(8), Validators.required]],
+      role: ['', [Validators.required]],
       confirmPassword: ['', Validators.required]
     }, {
       validator: MustMatch('password', 'confirmPassword')
@@ -42,10 +52,12 @@ export class AuthSignupComponent implements OnInit {
       this.authService.register(this.registerForm.value)
         .subscribe({
           next: () => {
-            this.router.navigate(['dashboard']);
+            this.alertService.success('El registro ha sido exitoso', { keepAfterRouteChange: true });
+            this.registerForm.reset();
           },
           error: error => {
-            // this.handlerError(error)
+            this.handlerError(error)
+            console.log(error)
           }
         })
     }
@@ -81,5 +93,20 @@ export class AuthSignupComponent implements OnInit {
     let dirty = this.registerForm.get(field).dirty;
     let invalid = !this.registerForm.get(field).valid;
     return (touched || dirty) && invalid;
+  }
+
+  handlerError(error) {
+    if (error instanceof HttpErrorResponse){
+      const validationErrors = error.error;
+
+      if (error.status === 400) {
+        if(validationErrors.email[0] = "Ya existe user con este Email.") {
+          const formControl = this.registerForm.get('email')
+          formControl.setErrors({
+            serverError: 'Ya existe un usuario con este Correo'
+          })
+        }
+      }
+    }
   }
 }
