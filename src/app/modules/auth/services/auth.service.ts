@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   login(authData: User): Observable<UserResponse | void> {
-    return this.http.post<UserResponse>(`${environment.baseUrl}/auth/login`, authData)
+    return this.http.post<UserResponse>(`${environment.baseUrl}/auth/login/`, authData)
       .pipe(
         map((user: UserResponse) => {
           this.saveLocalStorage(user);
@@ -43,7 +43,14 @@ export class AuthService {
   }
 
   register(authData: User) : Observable<any> {
-    return this.http.post<any>(`${environment.baseUrl}/auth/register`, authData)
+    return this.http.post<any>(`${environment.baseUrl}/auth/register/`, authData)
+    .pipe(
+      map((user: UserResponse) => {
+        this.saveLocalStorage(user);
+        this.user.next(user);
+        return user;
+      }),
+    );
   }
 
   logout() {
@@ -52,14 +59,29 @@ export class AuthService {
     this.router.navigate(['auth/signin'])
   }
 
+  authGoogle(idToken: any) : Observable<any> {
+    return this.http.post<any>(`${environment.baseUrl}/auth/google/`, idToken)
+    .pipe(
+      map((user: UserResponse) => {
+        this.saveLocalStorage(user);
+        this.user.next(user);
+        return user;
+      }),
+    )
+  }
+
+  resetPassword(email: any) {
+    return this.http.post<any>(`${environment.baseUrl}/auth/request-reset-email/`, email)
+  }
+
   private checkToken() {
     const user = JSON.parse(localStorage.getItem('user')) || null;
     if (user) {
-      const isExpired = helper.isTokenExpired(user.token);
+      const isExpired = helper.isTokenExpired(user.tokens.access);
+      console.log(isExpired)
       if (isExpired) {
         this.logout();
       } else {
-        // Esto puede causar un error ya que el user que paso no es el mismo UserResponse
         this.user.next(user);
       }
     }
@@ -67,12 +89,10 @@ export class AuthService {
 
   private saveLocalStorage(user: UserResponse) {
     let data = {
-      "token": user.token,
-      "authenticatedUser": {
-        "email": user.authenticatedUser.email,
-        "role": user.authenticatedUser.role,
-        "name": user.authenticatedUser.name
-      }
+      "email": user.email,
+      "role": user.role,
+      "name": user.name,
+      "tokens": user.tokens,
     }
     localStorage.setItem('user', JSON.stringify(data));
   }

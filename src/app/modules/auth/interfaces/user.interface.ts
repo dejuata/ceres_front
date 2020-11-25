@@ -3,14 +3,11 @@ export interface User {
   password: string
 }
 export interface UserResponse {
-  success: boolean,
-  status: number,
-  message: string,
-  token: string,
-  refresh: string
-  authenticatedUser: {
-    email: string,
-    role: string,
-    name: string
+  email: string,
+  role: string,
+  name: string
+  tokens: {
+    refresh: string,
+    access: string
   }
 }

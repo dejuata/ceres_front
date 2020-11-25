@@ -45,14 +45,34 @@
 
           <div class="form-group col-md-12">
             <label for="">Ubicación</label>
-            <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('location')}"
-              formControlName="location" placeholder="Ubicación">
-            <div class="invalid-input-feedback" *ngIf="isValidField('location')">
-              {{ getErrorMessage('location')}}
+          </div>
+
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('lat')}"
+              formControlName="lat" placeholder="Latitud" [(ngModel)]="latitud">
+            <div class="invalid-input-feedback" *ngIf="isValidField('lat')">
+              {{ getErrorMessage('lat')}}
             </div>
-            <div class="invalid-input-feedback" *ngIf="f.location.errors?.serverError">
-              {{ f.location.errors?.serverError }}
+            <div class="invalid-input-feedback" *ngIf="f.lat.errors?.serverError">
+              {{ f.latitud.errors?.serverError }}
             </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('lng')}"
+              formControlName="lng" placeholder="Longitud" [(ngModel)]="longitud">
+            <div class="invalid-input-feedback" *ngIf="isValidField('lng')">
+              {{ getErrorMessage('lng')}}
+            </div>
+            <div class="invalid-input-feedback" *ngIf="f.lng.errors?.serverError">
+              {{ f.lng.errors?.serverError }}
+            </div>
+          </div>
+
+          <div class="form-group col-md-12" *ngIf="latitud != 0 && longitud !=0">
+            <agm-map [latitude]="3.43722" [longitude]="-76.5225" [zoom]="zoom">
+              <agm-marker [latitude]="latitud" [longitude]="longitud"></agm-marker>
+            </agm-map>
           </div>
 
           <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">

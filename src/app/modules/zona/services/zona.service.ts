@@ -23,6 +23,7 @@ export class ZonaService {
   }
 
   createZona(zona: Zona): Observable<Zona> {
+    console.log(zona)
     return this.http.post<Zona>(this.endpoint, zona);
   }
 

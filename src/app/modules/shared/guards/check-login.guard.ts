@@ -18,18 +18,6 @@ export class CheckLoginGuard implements CanActivate {
   }
 
   canActivate(): Observable<boolean> {
-/*     return this.authService.isLogged
-      .pipe(
-        take(1),
-        map((isLogged: boolean) => {
-          if (isLogged) {
-            return true;
-          } else {
-            this.router.navigate(['auth/signin'])
-            return false;
-          }
-        })
-      ) */
       return this.authService.user$
         .pipe(
           take(1),

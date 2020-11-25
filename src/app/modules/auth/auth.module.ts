@@ -7,10 +7,11 @@ import { SharedModule as ShModule } from '@shared/shared.module';
 
 import { AuthSigninComponent } from './auth-signin/auth-signin.component';
 import { AuthSignupComponent } from './auth-signup/auth-signup.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
-  declarations: [AuthSigninComponent, AuthSignupComponent],
+  declarations: [AuthSigninComponent, AuthSignupComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

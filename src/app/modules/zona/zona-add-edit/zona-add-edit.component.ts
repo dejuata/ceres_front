@@ -5,7 +5,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { ZonaService } from '@zona/services/zona.service';
 import { AlertService } from '@shared/alert/services/alert.service';
-
+import { LatLngLiteral } from '@agm/core/map-types';
+declare const google: any;
 @Component({
   selector: 'app-zona-add-edit',
   templateUrl: './zona-add-edit.component.html',
@@ -13,11 +14,15 @@ import { AlertService } from '@shared/alert/services/alert.service';
 })
 export class ZonaAddEditComponent implements OnInit {
 
+
   zonaForm: FormGroup;
   id: string;
   isAddMode: boolean;
   loading = false;
   title: string;
+  latitud: number = 0;
+  longitud: number = 0;
+  zoom: number = 15;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +33,7 @@ export class ZonaAddEditComponent implements OnInit {
     private location: Location
   ) { }
 
+
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
@@ -36,12 +42,26 @@ export class ZonaAddEditComponent implements OnInit {
     if (!this.isAddMode) {
       this.getZona();
     }
+    // this.setCurrentPosition();
+
   }
+
+  /*setCurrentPosition(): void {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        console.log(this.lat, this.lng)
+      });
+    }
+  }
+  */
 
   formInit(): void {
     this.zonaForm = this.formBuilder.group({
       id_zone: ['', Validators.required],
-      location: ['', Validators.required],
+      lat: [this.latitud, Validators.required],
+      lng: [this.longitud, Validators.required],
       soil_type: ['',],
       size: ['',],
       state: ['',],
@@ -57,7 +77,7 @@ export class ZonaAddEditComponent implements OnInit {
     if (this.isAddMode) {
       this.createZona();
     } else {
-        this.updateZona();
+      this.updateZona();
     }
   }
 
@@ -68,7 +88,7 @@ export class ZonaAddEditComponent implements OnInit {
   getZona(): void {
     if (!this.isAddMode) {
       this.zonaService.getZonaById(this.id)
-      .subscribe(data => this.zonaForm.patchValue(data));
+        .subscribe(data => this.zonaForm.patchValue(data));
     }
   }
 
@@ -103,7 +123,7 @@ export class ZonaAddEditComponent implements OnInit {
   }
 
   handlerError(error) {
-    if (error instanceof HttpErrorResponse){
+    if (error instanceof HttpErrorResponse) {
       const validationErrors = error.error;
       if (error.status === 400) {
         Object.keys(validationErrors).forEach(prop => {

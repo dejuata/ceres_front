@@ -5,6 +5,8 @@ import { AuthService } from '@auth/services/auth.service';
 import { MustMatch } from '@auth/helpers/must-match.validator';
 import { AlertService } from '@shared/alert/services/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SocialAuthService } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-auth-signup',
@@ -25,6 +27,7 @@ export class AuthSignupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private alertService: AlertService,
+    private socialService: SocialAuthService,
     private router: Router,
   ) { }
 
@@ -53,6 +56,7 @@ export class AuthSignupComponent implements OnInit {
         .subscribe({
           next: () => {
             this.alertService.success('El registro ha sido exitoso', { keepAfterRouteChange: true });
+            this.router.navigate(['dashboard'])
             this.registerForm.reset();
           },
           error: error => {
@@ -61,6 +65,21 @@ export class AuthSignupComponent implements OnInit {
           }
         })
     }
+  }
+
+  signInWithGoogle(): void {
+    this.socialService.signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then(user => {
+        this.authService.authGoogle({ "auth_token": user.idToken })
+        .subscribe({
+          next: () => {
+            this.router.navigate(['dashboard']);
+          },
+          error: error => {
+            this.handlerError(error)
+          }
+        })
+      })
   }
 
   get f() {

@@ -6,7 +6,7 @@
           <thead>
           <tr>
             <th>Código Zona</th>
-            <th>Tipo de Zona</th>
+            <th>Tipo de Suelo</th>
             <th>Ubicación</th>
             <th>Tamaño</th>
             <th>Estado</th>
@@ -15,13 +15,9 @@
           </thead>
           <tbody>
           <tr *ngFor="let item of zonas">
-            <td>
-              <a routerLink="detail/{{item.id}}">
-                {{ item.id_zone }}
-              </a>
-            </td>
-            <td>{{ item.location }}</td>
+            <td><a routerLink="detail/{{item.id}}">{{ item.id_zone }}</a></td>
             <td>{{ item.soil_type }}</td>
+            <td>{{ item.lat }} / {{ item.lng }}</td>
             <td>{{ item.size }}</td>
             <td>{{ item.state }}</td>
             <td>

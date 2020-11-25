@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthService } from '@auth/services/auth.service';
 import { takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AlertService } from '@shared/alert/services/alert.service';
+import { SocialAuthService } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-auth-signin',
@@ -16,15 +17,21 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<any>();
   loginForm: FormGroup;
+  user: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private socialService: SocialAuthService,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.formInit();
+    /*this.socialService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(this.user)
+    });*/
   }
 
   ngOnDestroy(): void {
@@ -37,12 +44,12 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
       email: ['', [
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
         Validators.required
-        ]
+      ]
       ],
       password: ['', [
         Validators.minLength(8),
         Validators.required
-        ]
+      ]
       ],
     });
   }
@@ -70,6 +77,21 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
     }
   }
 
+  signInWithGoogle(): void {
+    this.socialService.signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then(user => {
+        this.authService.authGoogle({ "auth_token": user.idToken })
+        .subscribe({
+          next: () => {
+            this.router.navigate(['dashboard']);
+          },
+          error: error => {
+            this.handlerError(error)
+          }
+        })
+      })
+  }
+
   getErrorMessage(field: string): string {
     let message = '';
     if (this.loginForm.get(field).errors.required) {
@@ -91,7 +113,7 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
   }
 
   handlerError(error) {
-    if (error instanceof HttpErrorResponse){
+    if (error instanceof HttpErrorResponse) {
       const validationErrors = error.error;
 
       if (error.status === 400) {

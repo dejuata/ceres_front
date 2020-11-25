@@ -38,6 +38,10 @@ import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@environments/environment';
 
+import { SocialLoginModule, SocialAuthServiceConfig  } from 'angularx-social-login';
+import { GoogleLoginProvider} from 'angularx-social-login';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +76,8 @@ import { environment } from '@environments/environment';
     UsuarioModule,
     LaborModule,
     ScheduleModule,
+    SocialLoginModule,
+
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
@@ -81,6 +87,20 @@ import { environment } from '@environments/environment';
       useClass: AuthInterceptor,
       multi: true
     },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              environment.googleID
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })

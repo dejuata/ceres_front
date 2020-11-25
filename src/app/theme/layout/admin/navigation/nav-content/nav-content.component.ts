@@ -63,7 +63,7 @@ export class NavContentComponent implements OnInit, AfterViewInit {
   }
 
   viewDataUser(): void {
-    this.user.name = this.authService.userValue.authenticatedUser.name;
+    this.user.name = this.authService.userValue.name;
     let rol = {
       "1": "Administrador",
       "2": "Empleado",
@@ -71,7 +71,7 @@ export class NavContentComponent implements OnInit, AfterViewInit {
       "4": "Operario"
     }
 
-    this.user.rol = rol[this.authService.userValue.authenticatedUser.role];
+    this.user.rol = rol[this.authService.userValue.role];
   }
 
   onLogout() {
