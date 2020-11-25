@@ -4,6 +4,10 @@ import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthComponent } from './theme/layout/auth/auth.component';
 import { CheckLoginGuard } from '@shared/guards/check-login.guard';
 import { CheckRouteLoginGuard } from '@shared/guards/check-route-login.guard';
+import { OperatorGuard } from '@shared/guards/operator.guard';
+import { AdminGuard } from '@shared/guards/admin.guard';
+import { ManagerGuard } from '@shared/guards/manager.guard';
+import { FieldManagerGuard } from '@shared/guards/fieldmanager.guard';
 
 const routes: Routes = [
   {
@@ -38,18 +42,22 @@ const routes: Routes = [
       },
       {
         path: 'zona',
+        canActivate: [FieldManagerGuard],
         loadChildren: () => import('@zona/zona.module').then(module => module.ZonaModule)
       },
       {
         path: 'usuario',
-        loadChildren: () => import('@usuario/usuario.module').then(module => module.UsuarioModule)
+        canActivate: [ManagerGuard],
+        loadChildren: () => import('@usuario/usuario.module').then(module => module.UsuarioModule),
       },
       {
         path: 'labor',
+        canActivate: [FieldManagerGuard],
         loadChildren: () => import('@labor/labor.module').then(module => module.LaborModule)
       },
       {
         path: 'schedule',
+        canActivate: [FieldManagerGuard],
         loadChildren: () => import('@schedule/schedule.module').then(module => module.ScheduleModule)
       },
     ]
