@@ -60,6 +60,10 @@ const routes: Routes = [
         canActivate: [FieldManagerGuard],
         loadChildren: () => import('@schedule/schedule.module').then(module => module.ScheduleModule)
       },
+      {
+        path: 'bitacora',
+        loadChildren: () => import('./modules/bitacora/bitacora.module').then(module => module.BitacoraModule)
+      }
     ]
   }
 ];

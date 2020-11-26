@@ -1,0 +1,41 @@
+<div class="col-md-12">
+  <app-card cardTitle="Bitácora de Campo" [options]="false" cardClass="table-card">
+    <div class="table-responsive table-padding">
+      <div *ngIf="loading">
+        <table datatable [dtOptions]="dtOptions" class="table table-hover">
+          <thead>
+          <tr>
+            <th>Email</th>
+            <th>Nombre Labor</th>
+            <th>Descripción</th>
+            <th>Adjunto</th>
+            <th>Opciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of bitacoras">
+            <td>
+              <a routerLink="detail/{{item.id}}">
+                {{ item.emailFile }}
+              </a>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td><a (click)="goToLink(item.file)">{{ item.file }}</a></td>
+            <td>
+              <button type="button" class="btn btn-icon btn-info" routerLink="edit/{{item.id}}">
+                <i class="feather icon-edit-2"></i>
+              </button>
+              <button type="button" (click)="deleteBitacora(item.id)" class="btn btn-icon btn-danger left-margin">
+                <i class="feather icon-trash-2"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </app-card>
+</div>
+
+<app-confirmation-dialog></app-confirmation-dialog>

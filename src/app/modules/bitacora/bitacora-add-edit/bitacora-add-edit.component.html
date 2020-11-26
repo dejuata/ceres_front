@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="{{title}}" [options]="false">
+      <form [formGroup]="bitacoraForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+
+          <div class="form-group col-md-6">
+            <label>Fecha</label>
+            <input type="date" class="form-control" [ngClass]="{'invalid-input': isValidField('date')}" formControlName="date" placeholder="Fecha">
+            <div class="invalid-input-feedback" *ngIf="isValidField('date')">
+              {{ getErrorMessage('date')}}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Actividad</label>
+            <select class="form-control" (ngModelChange)="selectDataUser($event)" formControlName="actividad" [ngClass]="{'invalid-input': isValidField('actividad')}">
+              <option [value]="item[0]" *ngFor="let item of actividades">{{item[1]}}</option>
+            </select>
+            <div class="invalid-input-feedback" *ngIf="isValidField('actividad')">
+              {{ getErrorMessage('actividad')}}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Operador</label>
+            <input type="text" class="form-control"  formControlName="name_operator" placeholder="Operador">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Zona</label>
+            <input type="text" class="form-control"  formControlName="codigo_zona" placeholder="Zona">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Labor</label>
+            <input type="text" class="form-control"  formControlName="nombre_labor" placeholder="Labor">
+          </div>
+
+          <div class="form-group col-md-12">
+            <label for="">Evidencias</label>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Imagen</label>
+            <input type="file" class="form-control" formControlName="file" placeholder="Evidencia">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Audio</label>
+            <input type="file" class="form-control" formControlName="file" placeholder="Evidencia">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="">Capturar foto</label>
+            <input type="file" accept="image/*" capture="camera" id="camera" />
+          </div>
+
+
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>
+
+
+

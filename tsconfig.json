@@ -27,6 +27,7 @@
       "@shared/*":["src/app/modules/shared/*"],
       "@usuario/*":["src/app/modules/usuario/*"],
       "@schedule/*":["src/app/modules/schedule/*"],
+      "@bitacora/*":["src/app/modules/bitacora/*"],
     }
   },
   "angularCompilerOptions": {

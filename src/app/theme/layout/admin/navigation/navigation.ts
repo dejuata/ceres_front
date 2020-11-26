@@ -138,7 +138,7 @@ const NavigationItems = [
             id: 'zona_search',
             title: 'Consultar',
             type: 'item',
-            url: 'zona/',
+            url: 'zona',
             target: false,
             breadcrumbs: true
           }
@@ -182,6 +182,22 @@ const NavigationItems = [
         type: 'collapse',
         icon: 'feather icon-book',
         children: [
+          {
+            id: 'bitacora_create',
+            title: 'Crear',
+            type: 'item',
+	          url: 'bitacora/new',
+            target: false,
+            breadcrumbs: true
+          },
+          {
+            id: 'bitacora_search',
+            title: 'Consultar',
+            type: 'item',
+            url: 'bitacora',
+            target: false,
+            breadcrumbs: true
+          }
         ]
       },
     ]
