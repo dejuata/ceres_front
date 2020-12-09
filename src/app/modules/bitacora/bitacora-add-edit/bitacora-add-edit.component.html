@@ -2,66 +2,109 @@
   <div class="col-sm-12">
     <app-card cardTitle="{{title}}" [options]="false">
       <form [formGroup]="bitacoraForm" (ngSubmit)="onSubmit()">
-        <div class="row">
+        <ngb-tabset>
+          <ngb-tab title="Datos Básicos">
+            <ng-template ngbTabContent>
+              <div class="row mt-4">
+                <div class="form-group col-md-6">
+                  <label>Fecha</label>
+                  <input type="date" class="form-control" [ngClass]="{'invalid-input': isValidField('date')}" formControlName="date" placeholder="Fecha">
+                  <div class="invalid-input-feedback" *ngIf="isValidField('date')">
+                    {{ getErrorMessage('date')}}
+                  </div>
+                </div>
 
-          <div class="form-group col-md-6">
-            <label>Fecha</label>
-            <input type="date" class="form-control" [ngClass]="{'invalid-input': isValidField('date')}" formControlName="date" placeholder="Fecha">
-            <div class="invalid-input-feedback" *ngIf="isValidField('date')">
-              {{ getErrorMessage('date')}}
-            </div>
-          </div>
+                <div class="form-group col-md-6">
+                  <label for="">Actividad</label>
+                  <select class="form-control" (ngModelChange)="selectDataUser($event)" formControlName="actividad" [ngClass]="{'invalid-input': isValidField('actividad')}">
+                    <option [value]="item[0]" *ngFor="let item of actividades">{{item[1]}}</option>
+                  </select>
+                  <div class="invalid-input-feedback" *ngIf="isValidField('actividad')">
+                    {{ getErrorMessage('actividad')}}
+                  </div>
+                </div>
 
-          <div class="form-group col-md-6">
-            <label for="">Actividad</label>
-            <select class="form-control" (ngModelChange)="selectDataUser($event)" formControlName="actividad" [ngClass]="{'invalid-input': isValidField('actividad')}">
-              <option [value]="item[0]" *ngFor="let item of actividades">{{item[1]}}</option>
-            </select>
-            <div class="invalid-input-feedback" *ngIf="isValidField('actividad')">
-              {{ getErrorMessage('actividad')}}
-            </div>
-          </div>
+                <div class="form-group col-md-6">
+                  <label for="">Operador</label>
+                  <input type="text" class="form-control"  formControlName="name_operator" placeholder="Operador">
+                </div>
 
-          <div class="form-group col-md-6">
-            <label for="">Operador</label>
-            <input type="text" class="form-control"  formControlName="name_operator" placeholder="Operador">
-          </div>
+                <div class="form-group col-md-6">
+                  <label for="">Zona</label>
+                  <input type="text" class="form-control"  formControlName="codigo_zona" placeholder="Zona">
+                </div>
 
-          <div class="form-group col-md-6">
-            <label for="">Zona</label>
-            <input type="text" class="form-control"  formControlName="codigo_zona" placeholder="Zona">
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="">Labor</label>
-            <input type="text" class="form-control"  formControlName="nombre_labor" placeholder="Labor">
-          </div>
-
-          <div class="form-group col-md-12">
-            <label for="">Evidencias</label>
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="">Imagen</label>
-            <input type="file" class="form-control" formControlName="file" placeholder="Evidencia">
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="">Audio</label>
-            <input type="file" class="form-control" formControlName="file" placeholder="Evidencia">
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="">Capturar foto</label>
-            <input type="file" accept="image/*" capture="camera" id="camera" />
-          </div>
+                <div class="form-group col-md-6">
+                  <label for="">Labor</label>
+                  <input type="text" class="form-control"  formControlName="nombre_labor" placeholder="Labor">
+                </div>
 
 
+
+                <div class="form-group col-md-12">
+                  <label for="">Descripción</label>
+                  <textarea rows="5" type="text" class="form-control" formControlName="description" placeholder="Descripción">
+                  </textarea>
+                </div>
+
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Evidencias">
+            <ng-template ngbTabContent>
+              <div class="row mt-4">
+
+                <div class="form-group col-md-6">
+                  <label for="">Subir Imagen</label>
+                  <input type="file" class="form-control" formControlName="file" placeholder="Evidencia">
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="">Geolocalización</label>
+                  <div class="row-flex">
+                    <input type="text" class="form-control col-md-5"  placeholder="Latitud" formControlName="lat">
+                    <input type="text" class="form-control col-md-5"  placeholder="Longitud" formControlName="lng">
+                    <button type="button" class="btn btn-icon btn-secondary" (click)="setCurrentPosition()">
+                      <i class="feather icon-map-pin"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="">Grabar Audio</label>
+                  <div class="row-flex">
+                    <audio [src]="_recordRTC?.blobUrl" controls></audio>
+
+                    <div class="text-center">
+                      <button type="button" (click)="startVoiceRecord()" class="btn btn-icon btn-info">
+                        <i class="feather icon-mic"></i>
+                      </button>
+                      <p>{{_recordRTC?.recordingTimer}}</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+
+        <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">
+          <button [disabled]="!bitacoraForm.valid" type="submit" class="btn btn-primary col-md-2">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Guardar
+          </button>
+          <button type="button" class="btn btn-danger col-md-2 ml-3" (click)="cancel()">
+            Cancelar
+          </button>
         </div>
       </form>
+
+
     </app-card>
   </div>
 </div>
+
 
 
 

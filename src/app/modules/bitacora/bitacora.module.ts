@@ -7,14 +7,14 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../../theme/shared/shared.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
+import { NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
+import { BitacoraRoutingModule } from '@bitacora/bitacora-routing.module';
+import { BitacoraAddComponent } from '@bitacora/bitacora-add/bitacora-add.component';
+import { BitacoraListComponent } from '@bitacora/bitacora-list/bitacora-list.component'
+import { BitacoraDetailsComponent } from '@bitacora/bitacora-details/bitacora-details.component';
+import { BitacoraAddEditComponent } from '@bitacora/bitacora-add-edit/bitacora-add-edit.component'
 
-import { BitacoraRoutingModule } from './bitacora-routing.module';
-import { BitacoraAddComponent } from './bitacora-add/bitacora-add.component';
-import { BitacoraListComponent } from './bitacora-list/bitacora-list.component'
-import { BitacoraDetailsComponent } from './bitacora-details/bitacora-details.component';
-import { BitacoraAddEditComponent } from './bitacora-add-edit/bitacora-add-edit.component'
-
-
+import { RecordRTCService } from '@bitacora/services/record-rtc.service';
 @NgModule({
   declarations: [
     BitacoraAddComponent,
@@ -28,9 +28,10 @@ import { BitacoraAddEditComponent } from './bitacora-add-edit/bitacora-add-edit.
     CommonModule,
     BitacoraRoutingModule,
     SharedModule,
-    ShModule
+    ShModule,
+    NgbTabsetModule
   ],
-  //providers: [],
+  providers: [RecordRTCService],
   //bootstrap: [BitacoraAddComponent]
 })
 export class BitacoraModule { }
