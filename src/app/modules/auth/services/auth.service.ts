@@ -31,12 +31,9 @@ export class AuthService {
   }
 
   login(authData: User): Observable<UserResponse | void> {
-    return this.http.post<UserResponse>(`${environment.baseUrl}/auth/login`, authData)
+    return this.http.post<UserResponse>(`${environment.baseUrl}/auth/login/`, authData)
       .pipe(
         map((user: UserResponse) => {
-          if (!user.tokens) user.tokens = {"refresh": user.refresh, "access": user.access};
-          if (!user.email )user.email = user['authenticatedUser']['email'];
-          if (!user.role) user.role = user['authenticatedUser']['role'];
           this.saveLocalStorage(user);
           this.user.next(user);
           return user;
