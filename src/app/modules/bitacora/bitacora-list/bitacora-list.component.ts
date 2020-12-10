@@ -33,6 +33,7 @@ export class BitacoraListComponent implements OnInit {
     this.bitacoraService.getBitacora()
       .subscribe(data => {
         this.bitacoras = data;
+        console.log(data)
         this.loading = true;
       }, err => {
         console.log(err)
@@ -61,6 +62,7 @@ export class BitacoraListComponent implements OnInit {
       language: language,
     };
   }
+
   goToLink(url: string){
     window.open(url, "_blank");
   }

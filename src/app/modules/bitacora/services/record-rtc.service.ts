@@ -62,14 +62,12 @@ export class RecordRTCService {
       //NOTE: upload on server
       this.blobUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
       this.startCountdown(true);
-      console.log('archivo', this.blobUrl)
     })
   }
 
-  save() {
-    if(this.blobUrl) {
-      console.log(this.blobUrl)
-    }
+  saveAudio() {
+    //this.recordWebRTC.save('video.webm');
+    //this.recordWebRTC.getDataURL(this.blobUrl);
   }
 
   /**
@@ -125,10 +123,6 @@ export class RecordRTCService {
     } catch (error) {
       //stream error
     }
-  }
-
-  saveAudio() {
-
   }
 
 }

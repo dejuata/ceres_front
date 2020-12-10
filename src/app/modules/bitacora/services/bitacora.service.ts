@@ -30,28 +30,8 @@ export class BitacoraService {
     return this.http.get<Bitacora>(`${this.endpoint}${id}`);
   }
 
-  createBitacora(bitacora: Bitacora): Observable<Bitacora> {
+  createBitacora(bitacora: any): Observable<Bitacora> {
     console.log('bitacora', bitacora)
-    // bitacora.actividad = parseInt(bitacora.actividad)
-    let data = {
-      "date": "2020-12-10",
-      //"description": "Des1",
-      "actividad": 1,
-      /*"name_operator": "Juan",
-      "codigo_zona": "1234",
-      "nombre_labor": "juan",
-      "state": true,*/
-  }
-
-    let data1 = {
-      'actividad': 1,
-      'date': "2020-12-09",
-      'description': "",
-      'file': null,
-      /*'lat': "",
-      'lng': "",
-      "state": true,*/
-    }
     return this.http.post<any>(this.endpoint, bitacora);
   }
 

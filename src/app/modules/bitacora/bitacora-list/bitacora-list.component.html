@@ -5,9 +5,10 @@
         <table datatable [dtOptions]="dtOptions" class="table table-hover">
           <thead>
           <tr>
-            <th>Email</th>
-            <th>Nombre Labor</th>
-            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Operador</th>
+            <th>Labor</th>
+            <th>Zona</th>
             <th>Adjunto</th>
             <th>Opciones</th>
           </tr>
@@ -16,12 +17,17 @@
           <tr *ngFor="let item of bitacoras">
             <td>
               <a routerLink="detail/{{item.id}}">
-                {{ item.emailFile }}
+                {{ item.date }}
               </a>
             </td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.description }}</td>
-            <td><a (click)="goToLink(item.file)">{{ item.file }}</a></td>
+            <td>{{ item.name_operator }}</td>
+            <td>{{ item.nombre_labor }}</td>
+            <td>{{ item.codigo_zona }}</td>
+            <td>
+              <button type="button" (click)="goToLink(item.file)" *ngIf="item.file" class="btn btn-icon btn-secondary">
+                <i class="feather icon-image"></i>
+              </button>
+            </td>
             <td>
               <button type="button" class="btn btn-icon btn-info" routerLink="edit/{{item.id}}">
                 <i class="feather icon-edit-2"></i>

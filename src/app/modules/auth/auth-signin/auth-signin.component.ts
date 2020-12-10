@@ -78,7 +78,8 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
   }
 
   signInWithGoogle(): void {
-    this.socialService.signIn(GoogleLoginProvider.PROVIDER_ID)
+    if (GoogleLoginProvider.PROVIDER_ID) {
+      this.socialService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(user => {
         this.authService.authGoogle({ "auth_token": user.idToken })
         .subscribe({
@@ -86,10 +87,12 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
             this.router.navigate(['dashboard']);
           },
           error: error => {
-            this.handlerError(error)
+            // this.handlerError(error)
+            console.log(error)
           }
         })
       })
+    }
   }
 
   getErrorMessage(field: string): string {

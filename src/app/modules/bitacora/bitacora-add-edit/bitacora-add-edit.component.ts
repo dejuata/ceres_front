@@ -1,11 +1,12 @@
 import { BitacoraService } from '@bitacora/services/bitacora.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '@shared/alert/services/alert.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RecordRTCService } from '@bitacora/services/record-rtc.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-bitacora-add-edit',
@@ -19,6 +20,7 @@ export class BitacoraAddEditComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   title: string;
+  @ViewChild('audio') audio: ElementRef;
 
 
   actividades: any[] = [];
@@ -30,7 +32,8 @@ export class BitacoraAddEditComponent implements OnInit {
     private alertService: AlertService,
     private location: Location,
     private bitacoraService: BitacoraService,
-    public _recordRTC: RecordRTCService
+    public _recordRTC: RecordRTCService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -48,10 +51,6 @@ export class BitacoraAddEditComponent implements OnInit {
   startVoiceRecord() {
     console.log("grabando...")
     this._recordRTC.toggleRecord();
-  }
-
-  saveAudio() {
-    this._recordRTC.save();
   }
 
   formInit(): void {
@@ -75,8 +74,7 @@ export class BitacoraAddEditComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
-    //this.bitacoraForm.get('audio').setValue(this._recordRTC.blobUrl)
-    console.log('entro', this.bitacoraForm.value)
+
     // this.setValueForm();
     if (this.isAddMode) {
       this.createBitacora();
@@ -106,9 +104,9 @@ export class BitacoraAddEditComponent implements OnInit {
   }
 
   getActivitiesUser(): void {
-    this.bitacoraService.getActivitiesUser('1')
+    let user = this.authService.userValue.role;
+    this.bitacoraService.getActivitiesUser(user)
       .subscribe(data => {
-        console.log("data", data)
         data.actividades.forEach((elem) => {
           this.actividades.push([parseInt(elem.id), elem.schedule_date, elem.name_operator, elem.codigo_zona, elem.nombre_labor])
         })
@@ -133,8 +131,23 @@ export class BitacoraAddEditComponent implements OnInit {
     }
   }
 
+  setFormData() {
+    const formData = new FormData();
+    formData.append('file', this.bitacoraForm.get('file').value);
+    formData.append('date', this.bitacoraForm.get('date').value);
+    formData.append('actividad', this.bitacoraForm.get('actividad').value);
+    formData.append('description', this.bitacoraForm.get('description').value);
+    formData.append('lat', this.bitacoraForm.get('lat').value);
+    formData.append('lng', this.bitacoraForm.get('lng').value);
+    formData.append('name_operator', this.bitacoraForm.get('name_operator').value);
+    formData.append('codigo_zona', this.bitacoraForm.get('codigo_zona').value);
+    formData.append('nombre_labor', this.bitacoraForm.get('nombre_labor').value);
+    //formData.append('audio', this._recordRTC?.blobUrl);
+    return formData
+  }
+
   createBitacora(): void {
-    this.bitacoraService.createBitacora(this.bitacoraForm.value)
+    this.bitacoraService.createBitacora(this.setFormData())
       .subscribe({
         next: () => {
           this.alertService.success('El registro en bitácora ha sido creado', { keepAfterRouteChange: true });
@@ -178,5 +191,15 @@ export class BitacoraAddEditComponent implements OnInit {
       }
     }
   }
+
+  onChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.bitacoraForm.get('file').setValue(file);
+    }
+  }
+
+
+
 
 }
