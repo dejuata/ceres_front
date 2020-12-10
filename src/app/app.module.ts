@@ -30,6 +30,7 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
 import { HomeModule } from './modules/home/home.module';
 import { ZonaModule } from '@zona/zona.module';
 import { LaborModule } from '@labor/labor.module';
+import { ProductoModule } from '@producto/producto.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
 import { UsuarioModule } from '@usuario/usuario.module';
 import { ScheduleModule } from '@schedule/schedule.module';
@@ -72,6 +73,7 @@ import { GoogleLoginProvider} from 'angularx-social-login';
     ZonaModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ProductoModule,
     ShModule,
     UsuarioModule,
     LaborModule,

@@ -1,51 +1,49 @@
 <div class="row">
-  <div class="col-sm-12">
-    <app-card cardTitle="{{title}}" [options]="false">
-      <form [formGroup]="laborForm" (ngSubmit)="onSubmit()">
-        <div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="{{title}}" [options]="false">
+            <form [formGroup]="laborForm" (ngSubmit)="onSubmit()">
+                <div class="row">
 
-          <div class="form-group col-md-6">
-            <label for="">Nombre</label>
-            <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('name')}" formControlName="name" placeholder="Nombre">
-            <div class="invalid-input-feedback" *ngIf="isValidField('name')">
-              {{ getErrorMessage('name')}}
-            </div>
-            <div class="invalid-input-feedback" *ngIf="f.name.errors?.serverError">
-              {{ f.id_labor.errors?.serverError }}
-            </div>
-          </div>
+                    <div class="form-group col-md-6">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('name')}" formControlName="name" placeholder="Nombre">
+                        <div class="invalid-input-feedback" *ngIf="isValidField('name')">
+                            {{ getErrorMessage('name')}}
+                        </div>
+                        <div class="invalid-input-feedback" *ngIf="f.name.errors?.serverError">
+                            {{ f.id_labor.errors?.serverError }}
+                        </div>
+                    </div>
 
-          <div class="form-group col-md-6">
-            <label for="">Tipo</label>
-            <select class="form-control" formControlName="labor_type">
+                    <div class="form-group col-md-6">
+                        <label for="">Tipo</label>
+                        <select class="form-control" formControlName="labor_type">
               <option disabled selected>Seleccione una opción</option>
               <option value="Abonamiento">Abonamiento</option>
               <option value="Riego">Riego</option>
               <option value="Control de Malesa">Control de Malesa</option>
             </select>
-          </div>
+                    </div>
 
-          <div class="form-group col-md-12">
-            <label for="">Descripción</label>
-            <textarea rows="5" type="text" class="form-control" formControlName="description" placeholder="Descripción">
+                    <div class="form-group col-md-12">
+                        <label for="">Descripción</label>
+                        <textarea rows="5" type="text" class="form-control" formControlName="description" placeholder="Descripción">
             </textarea>
-          </div>
+                    </div>
 
 
 
-          <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">
-            <button [disabled]="!laborForm.valid" type="submit" class="btn btn-primary col-md-2">
+                    <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">
+                        <button [disabled]="!laborForm.valid" type="submit" class="btn btn-primary col-md-2">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               Guardar
             </button>
-            <button type="button" class="btn btn-danger col-md-2 ml-3" (click)="cancel()">
+                        <button type="button" class="btn btn-danger col-md-2 ml-3" (click)="cancel()">
               Cancelar
             </button>
-          </div>
-        </div>
-      </form>
-    </app-card>
-  </div>
+                    </div>
+                </div>
+            </form>
+        </app-card>
+    </div>
 </div>
-
-

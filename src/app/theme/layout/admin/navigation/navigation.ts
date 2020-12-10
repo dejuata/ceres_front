@@ -70,6 +70,22 @@ const NavigationItems = [
         type: 'collapse',
         icon: 'feather icon-package',
         children: [
+          {
+            id: 'product_create',
+            title: 'Crear',
+            type: 'item',
+            url: 'producto/new',
+            target: false,
+            breadcrumbs: true
+          },
+          {
+            id: 'product_search',
+            title: 'Consultar',
+            type: 'item',
+            url: 'producto/list',
+            target: false,
+            breadcrumbs: true
+          },
         ]
       },
       {
