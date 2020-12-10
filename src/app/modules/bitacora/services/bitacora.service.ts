@@ -31,11 +31,10 @@ export class BitacoraService {
   }
 
   createBitacora(bitacora: any): Observable<Bitacora> {
-    console.log('bitacora', bitacora)
     return this.http.post<any>(this.endpoint, bitacora);
   }
 
-  updateBitacora(id: string, bitacora: Bitacora): Observable<Bitacora> {
+  updateBitacora(id: string, bitacora: any): Observable<Bitacora> {
     return this.http.put<Bitacora>(`${this.endpoint}${id}/`, bitacora);
   }
 

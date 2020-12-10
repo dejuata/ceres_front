@@ -35,7 +35,7 @@ export class ProductoAddEditComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
     this.formInit();
-    this.title = this.isAddMode ? "Nuevo Producto" : "Editar el valor del Producto";
+    this.title = this.isAddMode ? "Nuevo Producto" : "Editar Producto";
     if (!this.isAddMode) {
       this.getProducto();
     }
@@ -44,12 +44,13 @@ export class ProductoAddEditComponent implements OnInit {
   formInit(): void {
     this.productoForm = this.formBuilder.group({
       name: ['', Validators.required],
-      brand: ['', Validators.required],
-      model: ['', Validators.required],
+      brand: [''],
+      model: [''],
       serial: ['', Validators.required],
-      type_pro: ['', Validators.required],
-      date_purchase: ['', Validators.required],
-      cost: ['', Validators.required],
+      type_pro: [''],
+      date_purchase: [null],
+      cost: [0],
+      quantity: [0],
     });
   }
 
@@ -71,12 +72,14 @@ export class ProductoAddEditComponent implements OnInit {
   }
 
   getProducto = () => {
-    this.productoService.getProductsById(this.id)
-    .subscribe(data => {
-        this.producto = data;
-      }, err => {
-        console.log(err)
-    })
+    if (!this.isAddMode) {
+      this.productoService.getProductsById(this.id)
+      .subscribe(data => {
+        this.productoForm.patchValue(data)
+        }, err => {
+          console.log(err)
+      })
+    }
   }
 
   createProducto(): void {

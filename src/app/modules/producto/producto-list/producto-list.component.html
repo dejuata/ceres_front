@@ -13,7 +13,7 @@
                             <th>Tipo</th>
                             <th>Fecha de compra</th>
                             <th>Costo</th>
-                            <th>Estado</th>
+                            <th>Cantidad</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -31,12 +31,12 @@
                             <td>{{item.type_pro}}</td>
                             <td>{{item.date_purchase}}</td>
                             <td>{{item.cost}}</td>
-                            <td>{{item.state}}</td>
+                            <td>{{item.quantity}}</td>
                             <td>
                                 <button type="button" class="btn btn-icon btn-info" routerLink="../edit/{{item.id}}">
                                   <i class="feather icon-edit-2"></i>
                                 </button>
-                                <button type="button" (click)="deleteProducto(item.id, item)" class="btn btn-icon btn-danger left-margin">
+                                <button type="button" (click)="deleteProducto(item.id)" class="btn btn-icon btn-danger left-margin">
                                     <i class="feather icon-trash-2"></i>
                                   </button>
                             </td>

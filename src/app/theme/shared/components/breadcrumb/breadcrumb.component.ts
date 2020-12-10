@@ -177,6 +177,13 @@ export class BreadcrumbComponent implements OnInit {
   ​​        url: './bitacora',
         })
       }
+      if(elem === "producto") {
+        result.push({
+          breadcrumbs: true,
+  ​​        title: "Producto",
+  ​​        url: './producto',
+        })
+      }
       if(elem === "new") {
         result.push({
           breadcrumbs: true,

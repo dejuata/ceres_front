@@ -42,10 +42,17 @@ export class BitacoraAddEditComponent implements OnInit {
     this.formInit();
     this.title = this.isAddMode ? "Nuevo Registro de Bitacora" : "Editar Registro de Bitacora";
     if (!this.isAddMode) {
-      // this.getLabor();
+      this.getBitacora();
     }
 
     this.getActivitiesUser();
+  }
+
+  getBitacora(): void {
+    if (!this.isAddMode) {
+      this.bitacoraService.getBitacoraById(this.id)
+        .subscribe(data => this.bitacoraForm.patchValue(data));
+    }
   }
 
   startVoiceRecord() {
@@ -79,7 +86,7 @@ export class BitacoraAddEditComponent implements OnInit {
     if (this.isAddMode) {
       this.createBitacora();
     } else {
-      //this.updateBitacora();
+      this.updateBitacora();
     }
   }
 
@@ -117,9 +124,16 @@ export class BitacoraAddEditComponent implements OnInit {
     let actividad = this.actividades.filter(item => {
       return item[0] == event
     })
-    this.bitacoraForm.get('name_operator').setValue(actividad[0][2])
-    this.bitacoraForm.get('codigo_zona').setValue(actividad[0][3])
-    this.bitacoraForm.get('nombre_labor').setValue(actividad[0][4])
+    try {
+      this.bitacoraForm.get('name_operator').setValue(actividad[0][2])
+      this.bitacoraForm.get('codigo_zona').setValue(actividad[0][3])
+      this.bitacoraForm.get('nombre_labor').setValue(actividad[0][4])
+    } catch {
+      this.bitacoraForm.get('name_operator').setValue('')
+      this.bitacoraForm.get('codigo_zona').setValue('')
+      this.bitacoraForm.get('nombre_labor').setValue('')
+    }
+
   }
 
   setCurrentPosition(): void {
@@ -133,7 +147,6 @@ export class BitacoraAddEditComponent implements OnInit {
 
   setFormData() {
     const formData = new FormData();
-    formData.append('file', this.bitacoraForm.get('file').value);
     formData.append('date', this.bitacoraForm.get('date').value);
     formData.append('actividad', this.bitacoraForm.get('actividad').value);
     formData.append('description', this.bitacoraForm.get('description').value);
@@ -143,6 +156,10 @@ export class BitacoraAddEditComponent implements OnInit {
     formData.append('codigo_zona', this.bitacoraForm.get('codigo_zona').value);
     formData.append('nombre_labor', this.bitacoraForm.get('nombre_labor').value);
     //formData.append('audio', this._recordRTC?.blobUrl);
+    console.log(this.bitacoraForm.get('file').value)
+    if (this.isAddMode) {
+      formData.append('file', this.bitacoraForm.get('file').value);
+    }
     return formData
   }
 
@@ -163,7 +180,7 @@ export class BitacoraAddEditComponent implements OnInit {
   }
 
   updateBitacora(): void {
-    this.bitacoraService.updateBitacora(this.id, this.bitacoraForm.value)
+    this.bitacoraService.updateBitacora(this.id, this.setFormData())
       .subscribe({
         next: () => {
           this.alertService.success('El registro de bitácora ha sido actualizado', { keepAfterRouteChange: true });

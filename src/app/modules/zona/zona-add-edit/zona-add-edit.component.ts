@@ -20,9 +20,10 @@ export class ZonaAddEditComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   title: string;
+  zoom: number = 15;
+  maps = false;
   latitud: number = 0;
   longitud: number = 0;
-  zoom: number = 15;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,27 +42,15 @@ export class ZonaAddEditComponent implements OnInit {
     this.title = this.isAddMode ? "Nueva Zona de Campo" : "Editar Zona de Campo";
     if (!this.isAddMode) {
       this.getZona();
-    }
-    // this.setCurrentPosition();
-
-  }
-
-  /*setCurrentPosition(): void {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        console.log(this.lat, this.lng)
-      });
+      this.maps = true;
     }
   }
-  */
 
   formInit(): void {
     this.zonaForm = this.formBuilder.group({
       id_zone: ['', Validators.required],
-      lat: [this.latitud, Validators.required],
-      lng: [this.longitud, Validators.required],
+      lat: ['', Validators.required],
+      lng: ['', Validators.required],
       soil_type: ['',],
       size: ['',],
       state: ['',],
@@ -152,5 +141,17 @@ export class ZonaAddEditComponent implements OnInit {
     let invalid = !this.zonaForm.get(field).valid;
 
     return (touched || dirty) && invalid;
+  }
+
+  setCurrentPosition(): void {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.zonaForm.get('lat').setValue(position.coords.latitude)
+        this.zonaForm.get('lng').setValue(position.coords.longitude)
+        this.latitud = +position.coords.latitude;
+        this.longitud = +position.coords.longitude;
+        this.maps = true;
+      });
+    }
   }
 }

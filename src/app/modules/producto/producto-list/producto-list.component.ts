@@ -12,7 +12,7 @@ import { ConfirmationDialogService } from '@shared/confirmation-dialog/services/
 })
 export class ProductoListComponent{
 
-  products: Producto[] = [{id: 1, name: 'Producto001', brand: 'Brand001', model: 'Model001', serial: 'Serial001', type_pro: 'Type001', date_purchase: 'Data001', cost: 10, state: 1}];
+  products: Producto[] = [];
   loading: boolean = false;
 
   constructor(
@@ -32,7 +32,7 @@ export class ProductoListComponent{
           console.log(err)
       })
   }
-/*
+
   deleteProducto(id: string): void {
     this.confirmationDialogService.confirmThis("¿Esta seguro que desea eliminar este registro ?", () => {
       this.onDelete(id);
@@ -40,19 +40,11 @@ export class ProductoListComponent{
       //console.log("Operación cancelada")
     })
   }
-*/
-  deleteProducto(id: string, producto: Producto): void {
-    this.confirmationDialogService.confirmThis("¿Esta seguro que desea suspender este registro ?", () => {
-      this.onDelete(id, producto);
-    }, () => {
-      //console.log("Operación cancelada")
-    })
-  }
 
-  onDelete(id: string, producto: Producto) {
-    this.productoService.deleteProducto(id, producto)
+  onDelete(id: string) {
+    this.productoService.deleteProducto(id)
       .subscribe(() => {
-        //this.products = this.products.filter(item => item.id != parseInt(id));
+        this.products = this.products.filter(item => item.id != parseInt(id));
         this.alertService.success('El Producto ha sido dado de baja', { keepAfterRouteChange: true });
       })
   }

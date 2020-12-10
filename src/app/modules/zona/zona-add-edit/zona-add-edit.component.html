@@ -49,7 +49,7 @@
 
           <div class="form-group col-md-6">
             <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('lat')}"
-              formControlName="lat" placeholder="Latitud" [(ngModel)]="latitud">
+              formControlName="lat" placeholder="Latitud">
             <div class="invalid-input-feedback" *ngIf="isValidField('lat')">
               {{ getErrorMessage('lat')}}
             </div>
@@ -60,7 +60,7 @@
 
           <div class="form-group col-md-6">
             <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('lng')}"
-              formControlName="lng" placeholder="Longitud" [(ngModel)]="longitud">
+              formControlName="lng" placeholder="Longitud">
             <div class="invalid-input-feedback" *ngIf="isValidField('lng')">
               {{ getErrorMessage('lng')}}
             </div>
@@ -68,11 +68,16 @@
               {{ f.lng.errors?.serverError }}
             </div>
           </div>
-
-          <div class="form-group col-md-12" *ngIf="latitud != 0 && longitud !=0">
-            <agm-map [latitude]="3.43722" [longitude]="-76.5225" [zoom]="zoom">
+          <div class="form-group col-md-12" *ngIf="maps">
+            <agm-map [latitude]="3.3849343999999997" [longitude]="-76.529664" [zoom]="zoom">
               <agm-marker [latitude]="latitud" [longitude]="longitud"></agm-marker>
             </agm-map>
+          </div>
+
+          <div class="form-group col-md-6">
+            <button type="button" (click)="setCurrentPosition()" class="btn btn-secondary">
+              Obtener Posición
+            </button>
           </div>
 
           <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">

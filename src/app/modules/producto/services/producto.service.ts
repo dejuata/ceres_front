@@ -9,9 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ProductoService {
 
-  baseurl = "http://localhost:8000/"
   endpoint = `${environment.baseUrl}/products/`;
-  httpHeaders = new HttpHeaders({'Content-Type': 'application/json'}); 
 
   constructor(private http: HttpClient) { }
 
@@ -30,15 +28,9 @@ export class ProductoService {
   updateProducto(id: string, producto: Producto): Observable<Producto> {
     return this.http.put<Producto>(`${this.endpoint}${id}/`, producto);
   }
- /*
+
   deleteProducto(id: string): Observable<Producto> {
     return this.http.delete<Producto>(`${this.endpoint}${id}`);
-  }
-*/
-  deleteProducto(id: string, producto: Producto): Observable<Producto> {
-    //console.log('ESTE ES EL PRODUCTO: -> '+producto.name)
-    producto.state = 0
-    return this.http.put<Producto>(`${this.endpoint}${id}/`, producto);
   }
 
 }

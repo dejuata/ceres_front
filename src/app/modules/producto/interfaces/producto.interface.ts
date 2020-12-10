@@ -8,4 +8,5 @@ export interface Producto {
   date_purchase: string;
   cost: number;
   state: number;
+  quantity: number;
 }
