@@ -56,6 +56,10 @@ const routes: Routes = [
         loadChildren: () => import('@labor/labor.module').then(module => module.LaborModule)
       },
       {
+        path: 'producto',
+        loadChildren: () => import('@producto/producto.module').then(module => module.ProductoModule),
+      },
+      {
         path: 'schedule',
         canActivate: [FieldManagerGuard],
         loadChildren: () => import('@schedule/schedule.module').then(module => module.ScheduleModule)

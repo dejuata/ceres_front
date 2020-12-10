@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   login(authData: User): Observable<UserResponse | void> {
-    return this.http.post<UserResponse>(`${environment.baseUrl}/auth/login/`, authData)
+    return this.http.post<UserResponse>(`${environment.baseUrl}/auth/login`, authData)
       .pipe(
         map((user: UserResponse) => {
           this.saveLocalStorage(user);

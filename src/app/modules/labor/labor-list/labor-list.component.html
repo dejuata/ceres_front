@@ -1,41 +1,41 @@
 <div class="col-md-12">
-  <app-card cardTitle="Labores" [options]="false" cardClass="table-card">
-    <div class="table-responsive table-padding">
-      <div *ngIf="loading">
-        <table datatable [dtOptions]="dtOptions" class="table table-hover">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Tipo</th>
-              <th>Descripción</th>
-              <th>Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of labors">
-              <td>
-                <a routerLink="detail/{{item.id}}">
+    <app-card cardTitle="Labores" [options]="false" cardClass="table-card">
+        <div class="table-responsive table-padding">
+            <div *ngIf="loading">
+                <table datatable [dtOptions]="dtOptions" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of labors">
+                            <td>
+                                <a routerLink="detail/{{item.id}}">
                   {{ item.id }}
                 </a>
-              </td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.description }}</td>
-              <td>{{ item.labor_type }}</td>
-              <td>
-                <button type="button" class="btn btn-icon btn-info" routerLink="edit/{{item.id}}">
+                            </td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.labor_type }}</td>
+                            <td>
+                                <button type="button" class="btn btn-icon btn-info" routerLink="edit/{{item.id}}">
                   <i class="feather icon-edit-2"></i>
                 </button>
-                <button type="button" (click)="deleteLabor(item.id)" class="btn btn-icon btn-danger left-margin">
+                                <button type="button" (click)="deleteLabor(item.id)" class="btn btn-icon btn-danger left-margin">
                   <i class="feather icon-trash-2"></i>
                 </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </app-card>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </app-card>
 </div>
 
 <app-confirmation-dialog></app-confirmation-dialog>
