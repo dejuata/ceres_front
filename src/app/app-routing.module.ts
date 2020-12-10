@@ -63,6 +63,10 @@ const routes: Routes = [
       {
         path: 'bitacora',
         loadChildren: () => import('./modules/bitacora/bitacora.module').then(module => module.BitacoraModule)
+      },
+      {
+        path: 'reporte',
+        loadChildren: () => import('@reporte/reporte.module').then(module => module.ReporteModule)
       }
     ]
   }
