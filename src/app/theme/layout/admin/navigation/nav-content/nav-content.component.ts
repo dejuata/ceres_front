@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnInit, Out
 import { NavigationItem } from '../navigation';
 import { NextConfig } from '../../../../../app-config';
 import { Location } from '@angular/common';
-import { AuthService } from '@auth/services/auth.service';
+//import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-nav-content',
@@ -35,7 +35,7 @@ export class NavContentComponent implements OnInit, AfterViewInit {
     public nav: NavigationItem,
     private zone: NgZone,
     private location: Location,
-    private authService: AuthService
+    //private authService: AuthService
   ) {
     this.flatConfig = NextConfig.config;
     this.windowWidth = window.innerWidth;
@@ -59,9 +59,9 @@ export class NavContentComponent implements OnInit, AfterViewInit {
     }
 
     // Inicializar nombre user y rol
-    this.viewDataUser();
+    //this.viewDataUser();
   }
-
+/*
   viewDataUser(): void {
     this.user.name = this.authService.userValue.name;
     let rol = {
@@ -77,7 +77,7 @@ export class NavContentComponent implements OnInit, AfterViewInit {
   onLogout() {
     this.authService.logout();
   }
-
+*/
   ngAfterViewInit() {
     if (this.flatConfig['layout'] === 'horizontal') {
       this.contentWidth = this.navbarContent.nativeElement.clientWidth;

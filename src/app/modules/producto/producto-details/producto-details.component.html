@@ -1,0 +1,38 @@
+<app-card cardTitle="Detalle Producto" [options]="false">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for=""><strong>Nombre</strong></label>
+            <p>{{ producto?.name }}</p>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for=""><strong>Marca</strong></label>
+            <p>{{ producto?.brand }}</p>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for=""><strong>Modelo</strong></label>
+            <p>{{ producto?.model }}</p>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for=""><strong>Serial</strong></label>
+            <p>{{ producto?.serial }}</p>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for=""><strong>Tipo</strong></label>
+            <p>{{ producto?.type_pro }}</p>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for=""><strong>Fecha de compra</strong></label>
+            <p>{{ producto?.date_purchase }}</p>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for=""><strong>Costo</strong></label>
+            <p>{{ producto?.cost }}</p>
+        </div>
+    </div>
+</app-card>

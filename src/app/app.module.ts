@@ -30,9 +30,11 @@ import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule 
 import { HomeModule } from './modules/home/home.module';
 import { ZonaModule } from '@zona/zona.module';
 import { LaborModule } from '@labor/labor.module';
+import { ProductoModule } from '@producto/producto.module';
 import { SharedModule as ShModule } from '@shared/shared.module';
 import { UsuarioModule } from '@usuario/usuario.module';
 import { ScheduleModule } from '@schedule/schedule.module';
+import { ReporteModule } from '@reporte/reporte.module';
 
 import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -72,11 +74,13 @@ import { GoogleLoginProvider} from 'angularx-social-login';
     ZonaModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ProductoModule,
     ShModule,
     UsuarioModule,
     LaborModule,
     ScheduleModule,
     SocialLoginModule,
+    ReporteModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],

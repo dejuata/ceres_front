@@ -95,7 +95,7 @@ export class UsuarioAddEditComponent implements OnInit {
         },
         error: error => {
           this.handlerError(error);
-          this.alertService.error("La Zona de Campo no ha sido creada");
+          this.alertService.error("El usuario no ha sido creado");
           this.loading = false;
         }
       })

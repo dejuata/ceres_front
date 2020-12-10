@@ -1,0 +1,99 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="{{title}}" [options]="false">
+            <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+
+                    <div class="form-group col-md-6">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('name')}" value="{{ producto?.name }}" formControlName="name" placeholder="Nombre">
+                        <div class="invalid-input-feedback" *ngIf="isValidField('name')">
+                            {{ getErrorMessage('name')}}
+                        </div>
+                        <div class="invalid-input-feedback" *ngIf="f.name.errors?.serverError">
+                            {{ f.name.errors?.serverError }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="">Marca</label>
+                        <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('brand')}" value="{{ producto?.brand }}" formControlName="brand" placeholder="Marca">
+                        <div class="invalid-input-feedback" *ngIf="isValidField('brand')">
+                            {{ getErrorMessage('brand')}}
+                        </div>
+                        <div class="invalid-input-feedback" *ngIf="f.brand.errors?.serverError">
+                            {{ f.brand.errors?.serverError }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="">Modelo</label>
+                        <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('model')}" value="{{ producto?.model }}" formControlName="model" placeholder="Modelo">
+                        <div class="invalid-input-feedback" *ngIf="isValidField('model')">
+                            {{ getErrorMessage('model')}}
+                        </div>
+                        <div class="invalid-input-feedback" *ngIf="f.model.errors?.serverError">
+                            {{ f.model.errors?.serverError }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="">Serial</label>
+                        <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('serial')}" value="{{ producto?.serial }}" formControlName="serial" placeholder="Serial">
+                        <div class="invalid-input-feedback" *ngIf="isValidField('serial')">
+                            {{ getErrorMessage('serial')}}
+                        </div>
+                        <div class="invalid-input-feedback" *ngIf="f.serial.errors?.serverError">
+                            {{ f.serial.errors?.serverError }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="">Tipo de producto</label>
+                        <input type="text" class="form-control" [ngClass]="{'invalid-input': isValidField('type_pro')}" value="{{ producto?.type_pro }}" formControlName="type_pro" placeholder="Tipo de producto">
+                        <div class="invalid-input-feedback" *ngIf="isValidField('type_pro')">
+                            {{ getErrorMessage('type_pro')}}
+                        </div>
+                        <div class="invalid-input-feedback" *ngIf="f.type_pro.errors?.serverError">
+                            {{ f.type_pro.errors?.serverError }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="">Fecha de compra</label>
+                        <input type="date" class="form-control" [ngClass]="{'invalid-input': isValidField('date_purchase')}" value="{{ producto?.date_purchase }}" formControlName="date_purchase" placeholder="Fecha de compra">
+                        <div class="invalid-input-feedback" *ngIf="isValidField('date_purchase')">
+                            {{ getErrorMessage('date_purchase')}}
+                        </div>
+                        <div class="invalid-input-feedback" *ngIf="f.date_purchase.errors?.serverError">
+                            {{ f.date_purchase.errors?.serverError }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="">Costo</label>
+                        <input type="number" class="form-control" step="0.01" [ngClass]="{'invalid-input': isValidField('cost')}" value="{{ producto?.cost }}" formControlName="cost" placeholder="Costo">
+                        <div class="invalid-input-feedback" *ngIf="isValidField('cost')">
+                            {{ getErrorMessage('cost')}}
+                        </div>
+                        <div class="invalid-input-feedback" *ngIf="f.cost.errors?.serverError">
+                            {{ f.cost.errors?.serverError }}
+                        </div>
+                    </div>
+
+                    <div class="row form-group col-md-12 mt-4 p-0 justify-content-end">
+
+                        <button [disabled]="!productoForm.valid" type="submit" class="btn btn-primary col-md-2">
+                          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                          Guardar
+                        </button>
+
+                        <button type="button" class="btn btn-danger col-md-2 ml-3" (click)="cancel()">
+                          Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>

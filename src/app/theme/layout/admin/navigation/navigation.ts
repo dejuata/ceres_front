@@ -70,6 +70,22 @@ const NavigationItems = [
         type: 'collapse',
         icon: 'feather icon-package',
         children: [
+          {
+            id: 'product_create',
+            title: 'Crear',
+            type: 'item',
+            url: 'producto/new',
+            target: false,
+            breadcrumbs: true
+          },
+          {
+            id: 'product_search',
+            title: 'Consultar',
+            type: 'item',
+            url: 'producto/list',
+            target: false,
+            breadcrumbs: true
+          },
         ]
       },
       {
@@ -78,6 +94,22 @@ const NavigationItems = [
         type: 'collapse',
         icon: 'feather icon-clipboard',
         children: [
+          {
+            id: 'actividades_operario',
+            title: 'Reporte actividades por operario',
+            type: 'item',
+            url: 'reporte/actividades_operario',
+            target: false,
+            breadcrumbs: true
+          },
+          {
+            id: 'actividades_zona',
+            title: 'Reporte actividades por zona',
+            type: 'item',
+            url: 'reporte/actividades_zona',
+            target: false,
+            breadcrumbs: true
+          },
         ]
       },
     ]
