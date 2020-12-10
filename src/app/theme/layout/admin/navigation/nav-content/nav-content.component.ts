@@ -59,7 +59,7 @@ export class NavContentComponent implements OnInit, AfterViewInit {
     }
 
     // Inicializar nombre user y rol
-    this.viewDataUser();
+    //this.viewDataUser();
   }
 /*
   viewDataUser(): void {

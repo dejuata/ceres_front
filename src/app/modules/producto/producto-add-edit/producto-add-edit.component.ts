@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common'
 import { ProductoService } from '@producto/services/producto.service';
 import { AlertService } from '@shared/alert/services/alert.service';
+import { Producto } from '@producto/interfaces/producto.interface';
 
 @Component({
   selector: 'app-producto-add-edit',

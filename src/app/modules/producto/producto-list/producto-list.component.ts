@@ -10,7 +10,7 @@ import { ConfirmationDialogService } from '@shared/confirmation-dialog/services/
   styleUrls: ['./producto-list.component.scss'],
   providers: [ProductoService]
 })
-export class ProductoListComponent implements OnInit {
+export class ProductoListComponent{
 
   products: Producto[] = [{id: 1, name: 'Producto001', brand: 'Brand001', model: 'Model001', serial: 'Serial001', type_pro: 'Type001', date_purchase: 'Data001', cost: 10, state: 1}];
   loading: boolean = false;
