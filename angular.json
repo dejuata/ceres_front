@@ -130,6 +130,10 @@
               "devServerTarget": "ng-flat-able:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     }

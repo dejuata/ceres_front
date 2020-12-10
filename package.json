@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "ng build --prod"
+    "prod": "ng build --prod",
+    "dev": "lite-server --baseDir='dist/ceres'"
   },
   "private": true,
   "dependencies": {
@@ -33,6 +34,7 @@
     "@fullcalendar/timegrid": "^5.4.0",
     "@handsontable/angular": "^6.0.1",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
+    "angular-cli-ghpages": "^1.0.0-rc.1",
     "angular-datatables": "^10.0.0",
     "angularx-social-login": "^3.5.4",
     "animate.css": "^4.1.1",
@@ -51,6 +53,7 @@
     "ngx-owl-carousel-o": "^1.1.5",
     "ngx-perfect-scrollbar": "^8.0.0",
     "nouislider": "^14.0.1",
+    "recordrtc": "^5.6.1",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.5.2",
     "screenfull": "^4.2.0",
@@ -77,6 +80,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "lite-server": "^2.6.1",
     "node-sass": "^4.12.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",

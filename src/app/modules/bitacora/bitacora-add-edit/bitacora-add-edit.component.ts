@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '@shared/alert/services/alert.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { RecordRTCService } from '@bitacora/services/record-rtc.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-bitacora-add-edit',
@@ -18,6 +20,7 @@ export class BitacoraAddEditComponent implements OnInit {
   loading = false;
   title: string;
 
+
   actividades: any[] = [];
 
   constructor(
@@ -26,7 +29,8 @@ export class BitacoraAddEditComponent implements OnInit {
     private router: Router,
     private alertService: AlertService,
     private location: Location,
-    private bitacoraService: BitacoraService
+    private bitacoraService: BitacoraService,
+    public _recordRTC: RecordRTCService
   ) { }
 
   ngOnInit(): void {
@@ -41,11 +45,23 @@ export class BitacoraAddEditComponent implements OnInit {
     this.getActivitiesUser();
   }
 
+  startVoiceRecord() {
+    console.log("grabando...")
+    this._recordRTC.toggleRecord();
+  }
+
+  saveAudio() {
+    this._recordRTC.save();
+  }
+
   formInit(): void {
     this.bitacoraForm = this.formBuilder.group({
       date: ['', Validators.required],
       description: ['',],
       file: ['',],
+      lat: ['',],
+      lng: ['',],
+      audio: ['',],
       actividad: ['',],
       name_operator: [{value: '', disabled: true},],
       codigo_zona: [{value: '', disabled: true},],
@@ -59,11 +75,13 @@ export class BitacoraAddEditComponent implements OnInit {
 
   onSubmit(): void {
     this.loading = true;
+    //this.bitacoraForm.get('audio').setValue(this._recordRTC.blobUrl)
+    console.log('entro', this.bitacoraForm.value)
     // this.setValueForm();
     if (this.isAddMode) {
-      // this.createSchedule();
+      this.createBitacora();
     } else {
-      // this.updateSchedule();
+      //this.updateBitacora();
     }
   }
 
@@ -92,7 +110,7 @@ export class BitacoraAddEditComponent implements OnInit {
       .subscribe(data => {
         console.log("data", data)
         data.actividades.forEach((elem) => {
-          this.actividades.push([elem.id, elem.schedule_date, elem.name_operator, elem.codigo_zona, elem.nombre_labor])
+          this.actividades.push([parseInt(elem.id), elem.schedule_date, elem.name_operator, elem.codigo_zona, elem.nombre_labor])
         })
       })
   }
@@ -104,6 +122,61 @@ export class BitacoraAddEditComponent implements OnInit {
     this.bitacoraForm.get('name_operator').setValue(actividad[0][2])
     this.bitacoraForm.get('codigo_zona').setValue(actividad[0][3])
     this.bitacoraForm.get('nombre_labor').setValue(actividad[0][4])
+  }
+
+  setCurrentPosition(): void {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.bitacoraForm.get('lat').setValue(position.coords.latitude)
+        this.bitacoraForm.get('lng').setValue(position.coords.longitude)
+      });
+    }
+  }
+
+  createBitacora(): void {
+    this.bitacoraService.createBitacora(this.bitacoraForm.value)
+      .subscribe({
+        next: () => {
+          this.alertService.success('El registro en bitácora ha sido creado', { keepAfterRouteChange: true });
+          this.loading = false;
+          this.bitacoraForm.reset();
+        },
+        error: error => {
+          this.handlerError(error);
+          this.alertService.error("El registro de bitácora no ha sido creado");
+          this.loading = false;
+        }
+      })
+  }
+
+  updateBitacora(): void {
+    this.bitacoraService.updateBitacora(this.id, this.bitacoraForm.value)
+      .subscribe({
+        next: () => {
+          this.alertService.success('El registro de bitácora ha sido actualizado', { keepAfterRouteChange: true });
+          this.router.navigate(['../../'], { relativeTo: this.route });
+        },
+        error: error => {
+          this.alertService.error('El registro de bitácora no ha sido actualizado');
+          this.loading = false;
+        }
+      })
+  }
+
+  handlerError(error) {
+    if (error instanceof HttpErrorResponse){
+      const validationErrors = error.error;
+      if (error.status === 400) {
+        Object.keys(validationErrors).forEach(prop => {
+          const formControl = this.bitacoraForm.get(prop);
+          if (formControl) {
+            formControl.setErrors({
+              serverError: validationErrors[prop]
+            });
+          }
+        });
+      }
+    }
   }
 
 }

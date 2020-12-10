@@ -9,10 +9,10 @@ import { Bitacora } from '@bitacora/interfaces/bitacora.interface';
 })
 export class BitacoraService {
 
-  endpoint = `${environment.baseUrl}/worklog/`
+  endpoint = `${environment.baseUrl}/worklogs/`
 
   constructor(private http: HttpClient) { }
-  
+
   //public worklog(formData: FormData) {
     //return this.http.post<any>(this.endpoint, formData);
   //}
@@ -31,6 +31,27 @@ export class BitacoraService {
   }
 
   createBitacora(bitacora: Bitacora): Observable<Bitacora> {
+    console.log('bitacora', bitacora)
+    // bitacora.actividad = parseInt(bitacora.actividad)
+    let data = {
+      "date": "2020-12-10",
+      //"description": "Des1",
+      "actividad": 1,
+      /*"name_operator": "Juan",
+      "codigo_zona": "1234",
+      "nombre_labor": "juan",
+      "state": true,*/
+  }
+
+    let data1 = {
+      'actividad': 1,
+      'date': "2020-12-09",
+      'description': "",
+      'file': null,
+      /*'lat': "",
+      'lng': "",
+      "state": true,*/
+    }
     return this.http.post<any>(this.endpoint, bitacora);
   }
 
