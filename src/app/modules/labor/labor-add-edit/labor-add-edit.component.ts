@@ -82,6 +82,7 @@ export class LaborAddEditComponent implements OnInit {
           this.handlerError(error);
           this.alertService.error("La Labor de Campo no ha sido creada");
           this.loading = false;
+          this.backgroundSync();
         }
       })
   }
@@ -130,5 +131,15 @@ export class LaborAddEditComponent implements OnInit {
     let invalid = !this.laborForm.get(field).valid;
 
     return (touched || dirty) && invalid;
+  }
+
+  postSync() {
+
+  }
+
+  backgroundSync() {
+    navigator.serviceWorker.ready
+      .then((swRegistration) => swRegistration.sync.register('post-data'))
+      .catch(console.log);
   }
 }

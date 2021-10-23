@@ -42,6 +42,7 @@ import { environment } from '@environments/environment';
 
 import { SocialLoginModule, SocialAuthServiceConfig  } from 'angularx-social-login';
 import { GoogleLoginProvider} from 'angularx-social-login';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { GoogleLoginProvider} from 'angularx-social-login';
     ToggleFullScreenDirective,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
@@ -83,6 +84,8 @@ import { GoogleLoginProvider} from 'angularx-social-login';
     ReporteModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+
+    RouterModule,
   ],
   providers: [
     NavigationItem,
